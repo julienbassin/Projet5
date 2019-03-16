@@ -16,7 +16,7 @@ try:
     search_result = requests.get(URL, params=PARAMS, timeout=3)
     search_result.raise_for_status()
     result_json = search_result.json()
-    print(result_json.products)
+    print(result_json['products'])
 
     #with open('datas.json', 'w') as f:
         #f.write(json.dumps(result_json, indent=4))
