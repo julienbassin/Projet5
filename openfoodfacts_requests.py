@@ -6,8 +6,8 @@ class OpenFoodFactsRequest():
     """
         initialiser des params pour requeter l'API openfoodfacts
     """
-    def __init__(self):
-        pass
+    def __init__(self, file_json):
+        self.file = file_json
 
 
     """
@@ -36,12 +36,13 @@ class OpenFoodFactsRequest():
             -   l'enseigne qui le propose (carrefour par exemple)
             -   l'url
     """
-    def parsing_json_object(self):
+    def parsing_json_object(self, object_json):
         pass
 
     """
         write_file_json permet d'ecrire les 10 produits dans 10 fichiers differents
     """
-    def write_file_json(self):
-        pass
+    def write_file_json(self, parsed_object_json):
+        with open(self.file, "w") as f:
+            f.write(parsed_object_json)
 
