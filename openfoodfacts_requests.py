@@ -1,3 +1,5 @@
+import requests
+import json
 class openfoodfacts_request:
 
     """
@@ -9,9 +11,9 @@ class openfoodfacts_request:
     """
         connexion permet de se connecter à l'API openfoodfacts
     """
-    def connexion(self):
+    def connexion(self, **params):
         try:
-            search_result = requests.get(self.url, params=PARAMS, timeout=3)
+            search_result = requests.get(self.url, params=params, timeout=3)
             search_result.raise_for_status()
         except requests.exceptions.HTTPError as errh:
             print ("Http Error:",errh)
@@ -21,6 +23,7 @@ class openfoodfacts_request:
             print ("Timeout Error:",errt)
         except requests.exceptions.RequestException as err:
             print ("OOps: Something Else",err)
+
     """
         parsing_json_object permet de récupérer seulement les informations nécessaires:
             -   Le nom du produit (FR)
