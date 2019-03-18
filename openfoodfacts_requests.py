@@ -43,6 +43,6 @@ class OpenFoodFactsRequest:
         write_file_json permet d'ecrire les 10 produits dans 10 fichiers differents
     """
     def write_file_json(self, parsed_object_json):
-        with open(self.file, "w") as :
+        with open(self.file, "w") as write_file:
             write_file.write(parsed_object_json)
 
