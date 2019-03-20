@@ -6,14 +6,12 @@ class OpenFoodFactsRequest:
     """
         initialiser des params pour requeter l'API openfoodfacts
     """
-    def __init__(self, file_json):
-        self.file = file_json
 
 
     """
         connexion permet de se connecter à l'API openfoodfacts
     """
-    def connexion(self, url, **params):
+    def Connexion(self, url, **params):
         try:
             search_result = requests.get(url, params=params, timeout=3)
             search_result.raise_for_status()
@@ -43,6 +41,6 @@ class OpenFoodFactsRequest:
         write_file_json permet d'ecrire les 10 produits dans 10 fichiers differents
     """
     def write_file_json(self, parsed_object_json):
-        with open(self.file, "w") as write_file:
+        with open("datas.json", "w") as write_file:
             write_file.write(parsed_object_json)
 
