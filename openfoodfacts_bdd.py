@@ -21,8 +21,8 @@ class openfoodfacts_mysql():
             user=self.user,
             passwd=self.password
             )
-        except expression as identifier:
-            pass
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
         self.conn = myconn
 
     def create_mysql_db(self, database):
@@ -33,8 +33,8 @@ class openfoodfacts_mysql():
         try:
             mycursor = self.conn.cursor()
             mycursor.execute("CREATE DATABASE " + database)
-        except expression as identifier:
-            pass
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
 
     def create_users_bdd():
         """
