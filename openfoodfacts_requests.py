@@ -45,12 +45,4 @@ class OpenFoodFactsRequest():
                     info_products['nutrition'] = products['nutrition_grades']
                     info_products['stores'] = products['stores']
                     info_products['url'] = products['image_nutrition_url']
-            print(info_products)
-
-    def write_file_json(self, parsed_object_json):
-        """
-            write_file_json permet d'ecrire les 10 produits dans 10 fichiers differents
-        """
-        with open("datas.json", "w") as write_file:
-            write_file.write(parsed_object_json)
-
+            return info_products
