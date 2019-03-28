@@ -10,19 +10,6 @@ class openfoodfacts_mysql():
         self.user = user
         self.password = password
 
-    def create_mysql_db(self, database, conn_sql):
-        """
-        Dans create_mysql_db, initialiser les params pour créer la bdd
-
-        """
-        try:
-            mycursor = conn_sql.cursor()
-            mycursor.execute("CREATE DATABASE " + database)
-        except expression as identifier:
-            pass
-
-
-
     def connexion_mysql(self, sqlserver):
         """
         Dans connexion_mysql, se connecter la bdd
@@ -36,8 +23,18 @@ class openfoodfacts_mysql():
             )
         except expression as identifier:
             pass
-        finally:
-            return myconn
+        self.conn = myconn
+
+    def create_mysql_db(self, database):
+        """
+        Dans create_mysql_db, initialiser les params pour créer la bdd
+
+        """
+        try:
+            mycursor = self.conn.cursor()
+            mycursor.execute("CREATE DATABASE " + database)
+        except expression as identifier:
+            pass
 
     def create_users_bdd():
         """
