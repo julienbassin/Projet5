@@ -1,38 +1,47 @@
+import mysql.connector
 class openfoodfacts_mysql():
 
 
-    def __init__():
+    def __init__(self, user, password):
         """
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
-        pass
+        self.user = user
+        self.password = password
 
-    def create_mysql_db():
+    def create_mysql_db(self, database, conn_sql):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 
         """
-        pass
+        try:
+            mycursor = conn_sql.cursor()
+            mycursor.execute("CREATE DATABASE " + database)
+        except expression as identifier:
+            pass
 
 
-    def connexion_mysql():
+
+    def connexion_mysql(self, sqlserver):
         """
         Dans connexion_mysql, se connecter la bdd
 
         """
-        pass
+        try:
+            myconn = mysql.connector.connect(
+            host=sqlserver,
+            user=self.user,
+            passwd=self.password
+            )
+        except expression as identifier:
+            pass
+        finally:
+            return myconn
 
     def create_users_bdd():
         """
         create_users_bdd permet de créer des utilisateurs et d'octroyer des droits
-
-        """
-        pass
-
-    def json_to_bdd():
-        """
-        write_json_to_bdd permet d'ecrire les données json en bdd
 
         """
         pass
