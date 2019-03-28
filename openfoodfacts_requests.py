@@ -36,12 +36,11 @@ class OpenFoodFactsRequest():
             -   son nutriscore -> key: nutrition_grades
             -   l'enseigne qui le propose (carrefour par exemple) -> key: stores
             -   l'url -> key : image_nutrition_url
-    """
+        """
         info_products = {}
 
         for products in object_json:
-            if products['countries_tags'] and products['nutrition_grades'] and products['stores']:
-                #if products['countries_tags'] not in info_products:
+            if products['countries_tags'] and products['nutrition_grades'] and products['stores'] and products['image_nutrition_url']:
                     info_products['countries'] = products['countries_tags']
                     info_products['nutrition'] = products['nutrition_grades']
                     info_products['stores'] = products['stores']

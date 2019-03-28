@@ -1,0 +1,53 @@
+table product
+
+    Name
+    product_id
+    url
+    nutrition_grade
+    date of the product
+
+table category
+
+    Name
+    category_id
+    date of the added category
+
+table store
+
+    Name
+    store_id
+    date of the added store
+
+table product_users
+
+	Name
+	favorite_id
+	product_id
+    users_id
+	date of added favorite
+
+table product_store
+
+	name
+	produit_store_id
+    product_id
+    store_id
+	date of added association
+
+table product_category
+
+    name
+    product_category_id
+    product_id
+    category_id
+    date of added product_category
+
+table users
+    name
+    surname
+    username
+    users_id
+    date of added users
+
+
+
