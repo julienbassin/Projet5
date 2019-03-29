@@ -9,7 +9,7 @@ PARAMS = {
 }
 
 a = OpenFoodFactsRequest(PARAMS)
-b = a.Connexion("https://ssl-api.openfoodfacts.org/cgi/search.pl", PARAMS)
+b = a.Connexion("https://ssl-api.openfoodfacts.org/cgi/search.pl")
 a.parsing_json_object(b)
 
 

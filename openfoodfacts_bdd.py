@@ -1,40 +1,40 @@
 import mysql.connector
+from openfoodfacts_requests import *
+
 class openfoodfacts_mysql:
 
-
-    def __init__(self, user, password):
+    def __init__(self, user, password, sqlserver):
         """
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
         self.user = user
         self.password = password
+        self.server = sqlserver
 
-    def connexion_mysql(self, sqlserver):
+    def connexion_sql(self, ):
         """
-        Dans connexion_mysql, se connecter la bdd
+        Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
 
         """
         try:
-            myconn = mysql.connector.connect(
-            host=sqlserver,
-            user=self.user,
-            passwd=self.password
-            )
+            self.conn = mysql.connector.connect(host=self.server,user=self.user,passwd=self.password)
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
-        self.conn = myconn
 
-    def create_mysql_db(self, database):
+    def create_sql_db(self, database):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 
         """
         try:
             mycursor = self.conn.cursor()
-            mycursor.execute("CREATE DATABASE " + database)
+            mycursor.execute("CREATE DATABASE" + database)
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
+
+    def create_sql_tables(self):
+        pass
 
     def create_users_bdd():
         """
@@ -42,6 +42,14 @@ class openfoodfacts_mysql:
 
         """
         pass
+
+    def info_products_to_bdd(self, products):
+            #check if sqlconnexion is not broken
+            try:
+            mycursor = self.conn.cursor()
+            mycursor.commit(products)
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
 
     def get_info_bdd():
         """
