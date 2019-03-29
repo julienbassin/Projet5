@@ -19,6 +19,7 @@ class openfoodfacts_mysql:
         Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
 
         """
+
         try:
             self.conn = mysql.connector.connect(host=self.server,user=self.user,passwd=self.password)
         except mysql.connector.Error as err:
@@ -66,7 +67,10 @@ class openfoodfacts_mysql:
         get_info_bdd permet de recuperer les informations en bdd
 
         """
-        pass
+        try:
+            print(0)
+        except print(0):
+            pass
 
 
     def write_info_bdd(self):
@@ -74,14 +78,20 @@ class openfoodfacts_mysql:
         Dans init, initialiser les params pour créer la bdd
 
         """
-        pass
+        try:
+            print(0)
+        except print(0):
+            pass
 
     def update_info_bdd(self):
         """
         update_info_bdd permet de mettre à jour les informations de la bdd
 
         """
-        pass
+        try:
+            print(0)
+        except print(0):
+            pass
 
 
     def delete_info_bdd():
@@ -89,4 +99,7 @@ class openfoodfacts_mysql:
         delete_info_bdd permet de supprimer les informations de la bdd
 
         """
-        pass
+        try:
+            print(0)
+        except print(0):
+            pass
