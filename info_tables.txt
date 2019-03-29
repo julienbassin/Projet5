@@ -26,7 +26,7 @@ table product_users
     users_id
 	date of added favorite
 
-table product_store
+table product_stores
 
 	name
 	produit_store_id

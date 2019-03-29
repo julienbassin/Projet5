@@ -11,8 +11,9 @@ class openfoodfacts_mysql:
         self.user = user
         self.password = password
         self.server = sqlserver
+        self.tables = ["users","products","categories","stores","product_users","product_stores","product_categories"]
 
-    def connexion_sql(self, ):
+    def connexion_sql(self):
         """
         Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
 
@@ -22,7 +23,7 @@ class openfoodfacts_mysql:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
-    def create_sql_db(self, database):
+    def create_sql_db(self, database="pur_beurre"):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 
@@ -33,10 +34,16 @@ class openfoodfacts_mysql:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
-    def create_sql_tables(self):
-        pass
+    def create_sql_tables(self, tables):
+        try:
+            mycursor = self.conn.cursor()
+            for table in self.tables:
+                mycursor.execute(tables)
+                mycursor.commit()
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
 
-    def create_users_bdd():
+    def create_users_bdd(self):
         """
         create_users_bdd permet de créer des utilisateurs et d'octroyer des droits
 
@@ -45,28 +52,30 @@ class openfoodfacts_mysql:
 
     def info_products_to_bdd(self, products):
             #check if sqlconnexion is not broken
-            try:
+        try:
             mycursor = self.conn.cursor()
-            mycursor.commit(products)
+            mycursor.execute(products)
+            mycursor.commit()
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
-    def get_info_bdd():
+    def get_info_bdd(self):
+
         """
-        get_info_bdd permet de récuperer les informations en bdd
+        get_info_bdd permet de recuperer les informations en bdd
 
         """
         pass
 
 
-    def write_info_bdd():
+    def write_info_bdd(self):
         """
         Dans init, initialiser les params pour créer la bdd
 
         """
         pass
 
-    def update_info_bdd():
+    def update_info_bdd(self):
         """
         update_info_bdd permet de mettre à jour les informations de la bdd
 
