@@ -1,4 +1,5 @@
 import mysql.connector
+from mysql.connector import errorcode
 from openfoodfacts_requests import *
 
 class openfoodfacts_mysql:
@@ -35,10 +36,10 @@ class openfoodfacts_mysql:
             print("Something went wrong: {}".format(err))
 
     def create_sql_tables(self, tables):
+        mycursor = self.conn.cursor()
         try:
-            mycursor = self.conn.cursor()
             for table in self.tables:
-                mycursor.execute(tables)
+                mycursor.execute(table)
                 mycursor.commit()
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
