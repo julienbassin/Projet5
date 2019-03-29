@@ -1,7 +1,7 @@
 import requests
 import json
 
-class OpenFoodFactsRequest():
+class OpenFoodFactsRequest:
 
     """
         initialiser des params pour requeter l'API openfoodfacts

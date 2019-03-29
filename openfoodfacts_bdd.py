@@ -1,5 +1,5 @@
 import mysql.connector
-class openfoodfacts_mysql():
+class openfoodfacts_mysql:
 
 
     def __init__(self, user, password):
