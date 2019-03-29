@@ -9,6 +9,7 @@ class OpenFoodFactsRequest:
 
     def __init__(self, params):
         self.params = params
+        self.info_products = {}
 
     def Connexion(self, url, p):
         """
@@ -28,7 +29,6 @@ class OpenFoodFactsRequest:
             print ("OOps: Something Else",err)
         return result_json["products"]
 
-
     def parsing_json_object(self,object_json):
         """
         parsing_json_object permet de récupérer seulement les informations nécessaires:
@@ -37,12 +37,12 @@ class OpenFoodFactsRequest:
             -   l'enseigne qui le propose (carrefour par exemple) -> key: stores
             -   l'url -> key : image_nutrition_url
         """
-        info_products = {}
-
         for products in object_json:
             if products['countries_tags'] and products['nutrition_grades'] and products['stores'] and products['image_nutrition_url']:
-                    info_products['countries'] = products['countries_tags']
-                    info_products['nutrition'] = products['nutrition_grades']
-                    info_products['stores'] = products['stores']
-                    info_products['url'] = products['image_nutrition_url']
-            return info_products
+                    self.info_products['countries'] = products['countries_tags']
+                    self.info_products['nutrition'] = products['nutrition_grades']
+                    self.info_products['stores'] = products['stores']
+                    self.info_products['url'] = products['image_nutrition_url']
+
+    def __repr__(self):
+        return self.info_products
