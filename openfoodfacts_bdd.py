@@ -35,7 +35,7 @@ class openfoodfacts_mysql:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
-    def create_sql_tables(self, tables):
+    def create_sql_tables(self):
         mycursor = self.conn.cursor()
         try:
             for table in self.tables:
