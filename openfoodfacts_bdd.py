@@ -40,7 +40,7 @@ class openfoodfacts_mysql:
         mycursor = self.conn.cursor()
         try:
             for table in self.tables:
-                mycursor.execute(table)
+                mycursor.execute("CREATE {}".format(table))
                 mycursor.commit()
                 mycursor.close()
         except mysql.connector.Error as err:

@@ -13,7 +13,7 @@ b = a.Connexion("https://ssl-api.openfoodfacts.org/cgi/search.pl")
 a.parsing_json_object(b)
 
 c = openfoodfacts_mysql("julien","Passw0rd+","localhost")
-
+c.connexion_sql()
 
 
 
