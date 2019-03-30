@@ -42,6 +42,7 @@ class openfoodfacts_mysql:
             for table in self.tables:
                 mycursor.execute(table)
                 mycursor.commit()
+                mycursor.close()
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
@@ -50,12 +51,19 @@ class openfoodfacts_mysql:
         create_users_bdd permet de créer des utilisateurs et d'octroyer des droits
 
         """
-        pass
+        mycursor = self.conn.cursor()
+        statement = """CREATE USER 'exemplar'@'localhost' IDENTIFIED BY 'MoreSecurity'"""
+        try:
+            mycursor.execute(statement)
+            mycursor.commit()
+            mycursor.close()
+        except mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
 
     def info_products_to_bdd(self, products):
             #check if sqlconnexion is not broken
-        try:
             mycursor = self.conn.cursor()
+        try:
             mycursor.execute(products)
             mycursor.commit()
         except mysql.connector.Error as err:
