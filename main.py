@@ -13,6 +13,7 @@ PARAMS = {
 
 # -tc- les variables a, b et c ne sont pas descriptives
 a = OpenFoodFactsRequest(PARAMS)
+# -tc- na pas nommer des méthodes avec des majuscules
 b = a.Connexion("https://ssl-api.openfoodfacts.org/cgi/search.pl")
 a.parsing_json_object(b)
 
