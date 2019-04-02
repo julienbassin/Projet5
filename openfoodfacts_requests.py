@@ -41,6 +41,7 @@ class OpenFoodFactsRequest:
         """
 
         for products in object_json:
+            # -tc- si l'une de ces clés n'existe pas, ton code produira une KeyError
             if products['countries_tags'] and products['nutrition_grades'] and products['stores'] and products['image_nutrition_url']:
                 self.info_products['countries'] = products['countries_tags']
                 self.info_products['nutrition'] = products['nutrition_grades']
