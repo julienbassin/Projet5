@@ -28,7 +28,7 @@ class OpenFoodFactsRequest:
             print ("Timeout Error:",errt)
         except requests.exceptions.RequestException as err:
             print ("OOps: Something Else",err)
-        return result_json["products"]
+        return result_json['products']
 
     def parsing_json_object(self, object_json):
 

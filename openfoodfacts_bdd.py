@@ -25,49 +25,38 @@ class openfoodfacts_mysql:
         except mysql.connector.Error as err:
             print("Something went wrong: {}".format(err))
 
+    def req_sql(self, req):
+        try:
+            if req not none:
+                mycursor = self.conn.cursor()
+                mycursor.execute(req)
+                mycursor.commit()
+        except  mysql.connector.Error as err:
+            print("Something went wrong: {}".format(err))
+
     def create_sql_db(self, database="pur_beurre"):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 
         """
-        try:
-            mycursor = self.conn.cursor()
-            mycursor.execute("CREATE DATABASE" + database)
-        except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+        req_sql("CREATE DATABASE {}".format(database))
+
 
     def create_sql_tables(self):
-        mycursor = self.conn.cursor()
-        try:
-            for table in self.tables:
-                mycursor.execute("CREATE {}".format(table))
-                mycursor.commit()
-                mycursor.close()
-        except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+        for table in self.tables:
+            req_sql("CREATE {}".format(table))
 
     def create_users_bdd(self):
+
         """
         create_users_bdd permet de créer des utilisateurs et d'octroyer des droits
 
         """
-        mycursor = self.conn.cursor()
         statement = """CREATE USER 'exemplar'@'localhost' IDENTIFIED BY 'MoreSecurity'"""
-        try:
-            mycursor.execute(statement)
-            mycursor.commit()
-            mycursor.close()
-        except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+        req_sql(statement)
 
     def info_products_to_bdd(self, products):
-            #check if sqlconnexion is not broken
-            mycursor = self.conn.cursor()
-        try:
-            mycursor.execute(products)
-            mycursor.commit()
-        except mysql.connector.Error as err:
-            print("Something went wrong: {}".format(err))
+            req_sql(products)
 
     def get_info_bdd(self):
 

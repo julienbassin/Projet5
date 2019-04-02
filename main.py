@@ -2,10 +2,10 @@ from openfoodfacts_requests import OpenFoodFactsRequest
 from openfoodfacts_bdd import openfoodfacts_mysql
 
 PARAMS = {
-    "search_terms"  :'riz',
-    "search_simple" : '1',
-    "action"        :'process',
-    "json"          : '1'
+        "search_terms"  :'riz',
+        "search_simple" : '1',
+        "action"        :'process',
+        "json"          : '1'
 }
 
 a = OpenFoodFactsRequest(PARAMS)
