@@ -9,7 +9,7 @@ class OpenFoodFactsRequest:
 
     def __init__(self, params):
         self.params = params
-        self.info_products = {}
+        self.info_products = None
 
     def Connexion(self, url):
 
@@ -41,12 +41,12 @@ class OpenFoodFactsRequest:
         """
 
         for products in object_json:
-            if products['countries_tags'] and products['nutrition_grades'] and products['stores'] and products['image_nutrition_url']:
-                self.info_products['countries'] = products['countries_tags']
-                self.info_products['nutrition'] = products['nutrition_grades']
-                self.info_products['stores'] = products['stores']
-                self.info_products['url'] = products['image_nutrition_url']
-
-    def __repr__(self):
-        return self.info_products
+            if products.get('countries_tags') and products.get('nutrition_grades') and products.get('stores') and products.get('image_nutrition_url'):
+                self.info_products = {
+                    'countries': products['countries_tags'],
+                    'nutrition': products['nutrition_grades']
+                    'stores': products['stores']
+                    'url': products['image_nutrition_url']
+                })
+            return self.info_products
 
