@@ -13,7 +13,8 @@ class OpenFoodFactsBdd:
         self.user = user
         self.password = password
         self.server = sqlserver
-        self.tables = ["users","products","categories","stores","product_users","product_stores","product_categories"]
+        self.tables = ["users","products","categories","stores","product_users"]
+        self.tables.users = {}
 
     def connexion_sql(self):
         """
@@ -47,48 +48,11 @@ class OpenFoodFactsBdd:
         for table in self.tables:
             req_sql("CREATE {}".format(table))
 
+    #ajouter les informations sur les tables avec un dictionnaire
+    #stocker les informations de bdd afin d'automatiser les requetes
+    #attention, chaque possède des données differentes. l unpacking doit pouvoir être utilisé
+
+
     def info_products_to_bdd(self):
             req_sql(self.info_products)
 
-    def get_info_bdd(self, req):
-
-        """
-        get_info_bdd permet de recuperer les informations en bdd
-
-        """
-        try:
-            print(0)
-        except print(0):
-            pass
-
-
-    def write_info_bdd(self):
-        """
-        Dans init, initialiser les params pour créer la bdd
-
-        """
-        try:
-            print(0)
-        except print(0):
-            pass
-
-    def update_info_bdd(self):
-        """
-        update_info_bdd permet de mettre à jour les informations de la bdd
-
-        """
-        try:
-            print(0)
-        except print(0):
-            logging.log("grave")
-
-
-    def delete_info_bdd():
-        """
-        delete_info_bdd permet de supprimer les informations de la bdd
-
-        """
-        try:
-            print(0)
-        except print(0):
-            logging.log("grave")

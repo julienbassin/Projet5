@@ -1,5 +1,6 @@
 import requests
 import json
+import logging
 
 class OpenFoodFactsRequest:
 
@@ -21,13 +22,13 @@ class OpenFoodFactsRequest:
             search_result.raise_for_status()
             result_json = search_result.json()
         except requests.exceptions.HTTPError as errh:
-            print ("Http Error:",errh)
+            logging.log("Http Error:",errh)
         except requests.exceptions.ConnectionError as errc:
-            print ("Error Connecting:",errc)
+            logging.log("Error Connecting:",errc)
         except requests.exceptions.Timeout as errt:
-            print ("Timeout Error:",errt)
+            logging.log("Timeout Error:",errt)
         except requests.exceptions.RequestException as err:
-            print ("OOps: Something Else",err)
+            logging.log("OOps: Something Else",err)
         return result_json['products']
 
     def parsing_json_object(self, object_json):
@@ -49,4 +50,5 @@ class OpenFoodFactsRequest:
                     'url': products['image_nutrition_url']
                 }
             return self.info_products
+        #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
 
