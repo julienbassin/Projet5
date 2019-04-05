@@ -14,6 +14,8 @@ a.parsing_json_object(b)
 
 c = openfoodfacts_mysql("julien","Passw0rd+","localhost")
 c.connexion_sql()
+c.create_sql_db()
+c.create_sql_tables()
 
 
 

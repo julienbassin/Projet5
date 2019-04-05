@@ -23,15 +23,15 @@ table product_users
 	Name
 	favorite_id
 	product_id
-    users_id
+    	users_id
 	date of added favorite
 
 table product_stores
 
 	name
 	produit_store_id
-    product_id
-    store_id
+    	product_id
+    	store_id
 	date of added association
 
 table product_category

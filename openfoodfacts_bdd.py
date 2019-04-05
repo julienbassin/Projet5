@@ -47,8 +47,8 @@ class OpenFoodFactsBdd:
         for table in self.tables:
             req_sql("CREATE {}".format(table))
 
-    def info_products_to_bdd(self, products):
-            req_sql(products)
+    def info_products_to_bdd(self):
+            req_sql(self.info_products)
 
     def get_info_bdd(self, req):
 

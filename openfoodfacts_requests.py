@@ -47,6 +47,6 @@ class OpenFoodFactsRequest:
                     'nutrition': products['nutrition_grades']
                     'stores': products['stores']
                     'url': products['image_nutrition_url']
-                })
+                }
             return self.info_products
 
