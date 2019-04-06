@@ -1,3 +1,5 @@
+import logging
+
 from openfoodfacts_requests import OpenFoodFactsRequest
 #from openfoodfacts_bdd import openfoodfacts_mysql
 from config import URL,PARAMS, CAT_PRODUCTS
