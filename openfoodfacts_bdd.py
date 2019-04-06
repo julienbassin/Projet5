@@ -1,7 +1,9 @@
 import mysql.connector
 from mysql.connector import errorcode
-from openfoodfacts_requests import OpenFoodFactsRequest
 import logging
+
+from openfoodfacts_requests import OpenFoodFactsRequest
+
 
 class OpenFoodFactsBdd:
 
@@ -29,7 +31,7 @@ class OpenFoodFactsBdd:
 
     def req_sql(self, req):
         try:
-            if req not none:
+            if req is not None:
                 mycursor = self.conn.cursor()
                 mycursor.execute(req)
                 mycursor.commit()

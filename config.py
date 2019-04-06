@@ -1,9 +1,8 @@
 URL = "https://ssl-api.openfoodfacts.org/cgi/search.pl"
-CAT_PRODUCTS = ('riz', 'pates','patates_douces')
+CAT_PRODUCTS = ('riz', 'pates')
 
 PARAMS = {
                 "search_simple" : '1',
                 "action"        :'process',
-                "json"          : '1',
-                "number"        : 20
+                "json"          : '1'
         }
