@@ -45,8 +45,8 @@ class OpenFoodFactsRequest:
             if products.get('countries_tags') and products.get('nutrition_grades') and products.get('stores') and products.get('image_nutrition_url'):
                 self.info_products = {
                     'countries': products['countries_tags'],
-                    'nutrition': products['nutrition_grades']
-                    'stores': products['stores']
+                    'nutrition': products['nutrition_grades'],
+                    'stores': products['stores'],
                     'url': products['image_nutrition_url']
                 }
             return self.info_products
