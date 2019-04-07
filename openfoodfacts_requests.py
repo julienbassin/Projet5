@@ -5,7 +5,7 @@ import logging
 class OpenFoodFactsRequest:
 
     """
-        initialiser des params pour requeter l'API openfoodfacts
+        This class retrieve all data with Openfoodfacts API
     """
 
     def __init__(self, params):
@@ -15,7 +15,7 @@ class OpenFoodFactsRequest:
     def Connexion(self, url):
 
         """
-            connexion permet de se connecter à l'API openfoodfacts
+            This method allows you to connect using the Openfoodfacts API
         """
         try:
             search_result = requests.get(url, params=self.params, timeout=3)
@@ -34,11 +34,11 @@ class OpenFoodFactsRequest:
     def GetProducts(self, object_json):
 
         """
-        parsing_json_object permet de récupérer seulement les informations nécessaires:
-            -   Le nom du produit (FR) -> key: countries_tags
-            -   son nutriscore -> key: nutrition_grades
-            -   l'enseigne qui le propose (carrefour par exemple) -> key: stores
-            -   l'url -> key : image_nutrition_url
+        This method retrieve needed informations based on:
+            -  Name of the product (FR) -> key: countries_tags
+            -  Nutriscore               -> key: nutrition_grades
+            -  Stores                   -> key: stores
+            -  URL                      -> key : image_nutrition_url
         """
 
         for products in object_json:
@@ -54,7 +54,22 @@ class OpenFoodFactsRequest:
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
 
 class GetCategories:
+    """
+        This class retrieves the categories of the products are available
+
+        key -> categories_tags
+
+    """
+
     pass
 
 class GetStores:
+    """
+
+        This class retrieves the stores where the products are available
+
+    """
+
+
     pass
+
