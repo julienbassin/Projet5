@@ -8,9 +8,14 @@ class Display:
 
     def __init__(self):
         self.running = True
+        self.node_parent = {}
 
-    def menu(self):
-        while self.running:
-            print("1 - Quel aliment souhaitez-vous remplacer ? \
-                2 - Retrouver mes aliments substitués.")
-        #design pattern composite
+    def add_node(self):
+        pass
+            #design pattern composite
+    def delete_node(self):
+        pass
+    def update_node(self):
+        pass
+    def get_node(self):
+        pass            

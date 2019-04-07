@@ -1,9 +1,15 @@
 import mysql.connector
-from mysql.connector import errorcode
 import logging
 
+from mysql.connector import errorcode
+from logging.handlers import RotatingFileHandler
 from openfoodfacts_requests import OpenFoodFactsRequest
 
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.DEBUG)
+logger.addHandler(stream_handler)
 
 class OpenFoodFactsBdd:
 
@@ -17,6 +23,7 @@ class OpenFoodFactsBdd:
         self.server = sqlserver
         self.tables = ["users","products","categories","stores","product_users"]
         self.tables.users = {}
+      
 
     def connexion_sql(self):
         """
@@ -27,7 +34,7 @@ class OpenFoodFactsBdd:
         try:
             self.conn = mysql.connector.connect(host=self.server,user=self.user,passwd=self.password)
         except mysql.connector.Error as err:
-            logging.log("Something went wrong: {}".format(err))
+            logger.error("Something went wrong: {}".format(err))
 
     def req_sql(self, req):
         try:
@@ -36,7 +43,7 @@ class OpenFoodFactsBdd:
                 mycursor.execute(req)
                 mycursor.commit()
         except  mysql.connector.Error as err:
-            logging.log("Something went wrong: {}".format(err))
+            logger.error("Something went wrong: {}".format(err))
 
     def create_sql_db(self, database="pur_beurre"):
         """
