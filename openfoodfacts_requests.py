@@ -31,7 +31,7 @@ class OpenFoodFactsRequest:
             logging.log("OOps: Something Else",err)
         return result_json['products']
 
-    def parsing_json_object(self, object_json):
+    def GetProducts(self, object_json):
 
         """
         parsing_json_object permet de récupérer seulement les informations nécessaires:
@@ -48,7 +48,7 @@ class OpenFoodFactsRequest:
                     'countries': products['countries_tags'],
                     'nutrition': products['nutrition_grades'],
                     'stores': products['stores'],
-                    'url': products['image_nutrition_url']
+                    'url': products['url']
                 }
             return self.info_products
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.

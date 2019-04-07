@@ -23,9 +23,9 @@ class OpenFoodFactsBdd:
         self.server = sqlserver
         self.tables = ["users","products","categories","stores","product_users"]
         self.tables.users = {}
-      
 
-    def connexion_sql(self):
+
+    def ConnexionSQL(self):
         """
         Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
 
@@ -36,7 +36,7 @@ class OpenFoodFactsBdd:
         except mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
 
-    def req_sql(self, req):
+    def RequestSQL(self, req):
         try:
             if req is not None:
                 mycursor = self.conn.cursor()
@@ -45,23 +45,18 @@ class OpenFoodFactsBdd:
         except  mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
 
-    def create_sql_db(self, database="pur_beurre"):
+    def CreateSQLBDD(self, database="pur_beurre"):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 
         """
-        req_sql("CREATE DATABASE {}".format(database))
+        self.RequestSQL("CREATE DATABASE {}".format(database))
 
 
-    def create_sql_tables(self):
+    def CreateSQLTables(self):
         for table in self.tables:
-            req_sql("CREATE {}".format(table))
+            self.RequestSQL("CREATE {}".format(table))
 
-    #ajouter les informations sur les tables avec un dictionnaire
-    #stocker les informations de bdd afin d'automatiser les requetes
-    #attention, chaque possède des données differentes. l unpacking doit pouvoir être utilisé
-
-
-    def info_products_to_bdd(self):
-            req_sql(self.info_products)
-
+#ajouter les informations sur les tables avec un dictionnaire
+#stocker les informations de bdd afin d'automatiser les requetes
+#attention, chaque possède des données differentes. l unpacking doit pouvoir être utilisé

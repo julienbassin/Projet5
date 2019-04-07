@@ -5,8 +5,8 @@ from openfoodfacts_requests import OpenFoodFactsRequest
 from config import URL,PARAMS, CAT_PRODUCTS
 
 
-for cat_product in CAT_PRODUCTS:
-        PARAMS["search_terms"] = cat_product
+for CatProducts in CAT_PRODUCTS:
+        PARAMS["search_terms"] = CatProducts
         print(PARAMS["search_terms"])
         request = OpenFoodFactsRequest(PARAMS)
         final_json = request.Connexion(URL)
