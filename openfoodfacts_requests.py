@@ -47,9 +47,14 @@ class OpenFoodFactsRequest:
                     'product_name_fr': products['product_name_fr'],
                     'countries': products['countries_tags'],
                     'nutrition': products['nutrition_grades'],
-                    'stores': products['stores'],
+                    'stores': products['stores_tags'],
                     'url': products['url']
                 }
             return self.info_products
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
 
+class GetCategories:
+    pass
+
+class GetStores:
+    pass
