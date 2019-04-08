@@ -21,6 +21,7 @@ class OpenFoodFactsBdd:
         self.user = user
         self.password = password
         self.server = sqlserver
+        self.conn = None
         self.tables = ["users","products","categories","stores","product_users"]
         self.tables.users = {}
 
