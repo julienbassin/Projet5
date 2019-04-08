@@ -22,7 +22,7 @@ class OpenFoodFactsBdd:
         self.password = password
         self.server = sqlserver
         self.conn = None
-        self.tables = ["users","products","categories","stores","product_users"]
+        self.tables = ["users","products","categories","stores","favorites"]
         self.tables.users = {}
 
 
