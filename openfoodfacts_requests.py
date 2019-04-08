@@ -10,7 +10,6 @@ class OpenFoodFactsRequest:
 
     def __init__(self, params):
         self.params = params
-        self.info_products = None
 
     def Connexion(self, url):
 
@@ -31,6 +30,11 @@ class OpenFoodFactsRequest:
             logging.log("OOps: Something Else",err)
         return result_json['products']
 
+class Products:
+
+    def __init__(self):
+        self.products = None
+
     def GetProducts(self, object_json):
 
         """
@@ -42,7 +46,7 @@ class OpenFoodFactsRequest:
         """
 
         for products in object_json:
-            if products.get('countries_tags') and products.get('nutrition_grades') and products.get('stores') and products.get('image_nutrition_url'):
+            if products.get('countries_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
                 self.info_products = {
                     'product_name_fr': products['product_name_fr'],
                     'countries': products['countries_tags'],
@@ -50,26 +54,56 @@ class OpenFoodFactsRequest:
                     'stores': products['stores_tags'],
                     'url': products['url']
                 }
-            return self.info_products
+            return self.products
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
 
-class GetCategories:
+class Categories:
     """
-        This class retrieves the categories of the products are available
+        This class retrieves the categories of any products
+
+    """
+
+    def __init__(self):
+        self.categories = None
+
+    def GetCategories(self, object_json):
+        """
+        This method retrieves the categories of the products are available
 
         key -> categories_tags
+        """
 
+        for products in object_json:
+            if products.get('categories_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
+                self.categories = {
+                    'product_name_fr': products['product_name_fr'],
+                    'categories': products['categories_tags'],
+                    'nutrition': products['nutrition_grades'],
+                    'stores': products['stores_tags'],
+                    'url': products['url']
+                }
+            return self.categories
+
+class Stores:
     """
 
-    pass
-
-class GetStores:
-    """
-
-        This class retrieves the stores where the products are available
+        This class retrieves the stores where any products
 
     """
+    def __init__(self):
+        self.stores = None
 
+    def GetStores(self, object_json):
+        """
+            This method retrieves the products are available
+        """
 
-    pass
+        for products in object_json:
+            if products.get('stores_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
+                self.stores = {
+                    'stores': products['stores_tags'],
+                    'nutrition': products['nutrition_grades'],
+                    'url': products['url']
+                }
+            return self.stores
 
