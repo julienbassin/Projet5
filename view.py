@@ -15,7 +15,7 @@ class Tree:
 
     def add_node(self, node):
         assert isinstance(node, Tree):
-             self.node_child.append(node)
+        self.node_child.append(node)
 
 
     def __repr__(self):

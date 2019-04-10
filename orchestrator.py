@@ -14,7 +14,6 @@ for CatProducts in CAT_PRODUCTS:
                 json.dump(final_json, file, indent=4)
 
         #print(final_json)
-
         #print(request.parsing_json_object(final_json))
 
 

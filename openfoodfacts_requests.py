@@ -2,6 +2,12 @@ import requests
 import json
 import logging
 
+logger = logging.getLogger()
+logger.setLevel(logging.DEBUG)
+stream_handler = logging.StreamHandler()
+stream_handler.setLevel(logging.DEBUG)
+logger.addHandler(stream_handler)
+
 class OpenFoodFactsRequest:
 
     """
@@ -35,7 +41,7 @@ class Products:
     def __init__(self):
         self.products = None
 
-    def GetProducts(self, object_json):
+    def GetInfoProducts(self, object_json):
 
         """
         This method retrieve needed informations based on:
@@ -56,54 +62,3 @@ class Products:
                 }
             return self.products
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
-
-class Categories:
-    """
-        This class retrieves the categories of any products
-
-    """
-
-    def __init__(self):
-        self.categories = None
-
-    def GetCategories(self, object_json):
-        """
-        This method retrieves the categories of the products are available
-
-        key -> categories_tags
-        """
-
-        for products in object_json:
-            if products.get('categories_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
-                self.categories = {
-                    'product_name_fr': products['product_name_fr'],
-                    'categories': products['categories_tags'],
-                    'nutrition': products['nutrition_grades'],
-                    'stores': products['stores_tags'],
-                    'url': products['url']
-                }
-            return self.categories
-
-class Stores:
-    """
-
-        This class retrieves the stores where any products
-
-    """
-    def __init__(self):
-        self.stores = None
-
-    def GetStores(self, object_json):
-        """
-            This method retrieves the products are available
-        """
-
-        for products in object_json:
-            if products.get('stores_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
-                self.stores = {
-                    'stores': products['stores_tags'],
-                    'nutrition': products['nutrition_grades'],
-                    'url': products['url']
-                }
-            return self.stores
-

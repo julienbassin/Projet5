@@ -23,7 +23,7 @@ class OpenFoodFactsBdd:
         self.server = sqlserver
         self.conn = None
         self.tables = ["users","products","categories","stores","favorites"]
-        self.tables.users = {}
+        self.tables.users = [(name VARCHAR(255), user_name VARCHAR(255)]
 
 
     def ConnexionSQL(self):
@@ -52,11 +52,18 @@ class OpenFoodFactsBdd:
 
         """
         self.RequestSQL("CREATE DATABASE {}".format(database))
+        results = self.RequestSQL("SHOW DATABASES")
+        databases = cursor.fetchall()
+            for database in databases:
+                print(database)
 
 
     def CreateSQLTables(self):
         for table in self.tables:
             self.RequestSQL("CREATE {}".format(table))
+        tables = cursor.fetchall()
+        for table in tables:
+            print(table)
 
 #ajouter les informations sur les tables avec un dictionnaire
 #stocker les informations de bdd afin d'automatiser les requetes
