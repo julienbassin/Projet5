@@ -52,7 +52,6 @@ class OpenFoodFactsBdd:
 
         """
         self.RequestSQL("CREATE DATABASE {}".format(database))
-        results = self.RequestSQL("SHOW DATABASES")
         databases = cursor.fetchall()
             for database in databases:
                 print(database)
