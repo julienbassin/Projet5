@@ -62,3 +62,15 @@ class Products:
                 }
             return self.products
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
+        def GetInfoCategories:
+            for products in object_json:
+                if products.get('categories_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
+                self.info_categories = {
+                    'categories': products['categories_tags'],
+                }
+        def GetInfoStores:
+            for products in object_json:
+                if products.get('stores') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
+                self.info_categories = {
+                    'Stores': products['stores'],
+                }
