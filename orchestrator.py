@@ -10,10 +10,10 @@ for CatProducts in CAT_PRODUCTS:
         print(PARAMS["search_terms"])
         request = OpenFoodFactsRequest(PARAMS)
         final_json = request.Connexion(URL)
-        with open('datas.json', 'w') as file:
-                json.dump(final_json, file, indent=4)
+        #with open('datas.json', 'w') as file:
+        #        json.dump(final_json, file, indent=4)
 
-        #print(final_json)
+        print(final_json)
         #print(request.parsing_json_object(final_json))
 
 
