@@ -1,4 +1,4 @@
-URL = "https://ssl-api.openfoodfacts.org/cgi/search.pl"
+URL = "https://fr.openfoodfacts.org/cgi/search.pl"
 CAT_PRODUCTS = ('riz',
                 'pates',
                 'pizzas',
@@ -16,5 +16,5 @@ PARAMS = {
                 "tagtype_0"     : "categories",
                 "tag_contains_0": "contains",
                 "json"          : '1',
-                "page_size"     : 10
+                "page_size"     : 20
         }

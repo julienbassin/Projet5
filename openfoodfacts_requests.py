@@ -16,6 +16,9 @@ class OpenFoodFactsRequest:
 
     def __init__(self, params):
         self.params = params
+        self.products = {}
+        self.categories = None
+        self.stores = None
 
     def Connect(self, url):
 
@@ -36,13 +39,6 @@ class OpenFoodFactsRequest:
             logging.log("OOps: Something Else",err)
         return result_json['products']
 
-class Products:
-
-    def __init__(self):
-        self.products = None
-        self.categories = None
-        self.stores = None
-
     def GetInfoProducts(self, object_json):
 
         """
@@ -52,9 +48,9 @@ class Products:
             -  Stores                   -> key: stores
             -  URL                      -> key : image_nutrition_url
         """
-
+        list_products = []
         for products in object_json:
-            if products.get('countries_tags') and products.get('nutrition_grades')  and products.get('image_nutrition_url'):
+            if products.get('nutrition_grades'):
                 self.info_products = {
                     'product_name_fr': products['product_name_fr'],
                     'countries': products['countries_tags'],
@@ -62,5 +58,5 @@ class Products:
                     'stores': products['stores_tags'],
                     'url': products['url']
                 }
-            return self.products
-        #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
+                list_products.append(self.info_products)
+        return list_products

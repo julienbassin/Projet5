@@ -23,11 +23,7 @@ class OpenFoodFactsBdd:
         self.server = sqlserver
         self.conn = None
         self.tables = ["users","products","categories","stores","favorites"]
-        self.tables.users = ['id INT AUTO_INCREMENT PRIMARY KEY', '(name VARCHAR(255)', 'user_name VARCHAR(255)']
-        self.tables.products = []
-        self.tables.categories = []
-        self.tables.stores = []
-        self.tables.favorites = []
+
 
     def ConnectSQL(self):
         """

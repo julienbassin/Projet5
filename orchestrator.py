@@ -9,10 +9,11 @@ for CatProducts in CAT_PRODUCTS:
         PARAMS["search_terms"] = CatProducts
         PARAMS["tag_0"] = CatProducts
         print(PARAMS["search_terms"])
+
         request = OpenFoodFactsRequest(PARAMS)
         final_json = request.Connect(URL)
-        print(final_json)
-        #print(request.parsing_json_object(final_json))
+        #print(final_json)
+        print(request.GetInfoProducts(final_json))
 
 
 
