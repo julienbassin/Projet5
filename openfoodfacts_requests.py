@@ -17,7 +17,7 @@ class OpenFoodFactsRequest:
     def __init__(self, params):
         self.params = params
 
-    def Connexion(self, url):
+    def Connect(self, url):
 
         """
             This method allows you to connect using the Openfoodfacts API
@@ -64,6 +64,3 @@ class Products:
                 }
             return self.products
         #utiliser la clé qui récupère 20 items puis traiter les objets afin d'avoir 10 items contenant tous les éléments.
-
-
-

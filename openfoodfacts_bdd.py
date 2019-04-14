@@ -29,12 +29,11 @@ class OpenFoodFactsBdd:
         self.tables.stores = []
         self.tables.favorites = []
 
-    def ConnexionSQL(self):
+    def ConnectSQL(self):
         """
         Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
 
         """
-
         try:
             self.conn = mysql.connector.connect(host=self.server,user=self.user,passwd=self.password)
         except mysql.connector.Error as err:
@@ -49,7 +48,7 @@ class OpenFoodFactsBdd:
         except  mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
 
-    def CreateSQLBDD(self, database="pur_beurre"):
+    def CreateSQLDatabase(self, database="pur_beurre"):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 

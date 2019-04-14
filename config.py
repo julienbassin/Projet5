@@ -2,9 +2,9 @@ URL = "https://ssl-api.openfoodfacts.org/cgi/search.pl"
 CAT_PRODUCTS = ('riz',
                 'pates',
                 'pizzas',
-                'patates douces', 
-                'haricots verts', 
-                'haricots rouges', 
+                'patates douces',
+                'haricots verts',
+                'haricots rouges',
                 'lentilles',
                 'quinoa',
                 'boeuf',
@@ -13,5 +13,8 @@ CAT_PRODUCTS = ('riz',
 PARAMS = {
                 "search_simple" : '1',
                 "action"        :'process',
-                "json"          : '1'
+                "tagtype_0"     : "categories",
+                "tag_contains_0": "contains",
+                "json"          : '1',
+                "page_size"     : 10
         }
