@@ -50,13 +50,18 @@ class OpenFoodFactsRequest:
         """
         list_products = []
         for products in object_json:
-            if products.get('nutrition_grades'):
-                self.info_products = {
+            try:
+                if products.get('nutrition_grades') and products.get('product_name_fr') and products.get('stores'):
+                    self.info_products = {
+                    'code' : products['code'],
                     'product_name_fr': products['product_name_fr'],
+                    'categories' : products['categories_tags'],
                     'countries': products['countries_tags'],
                     'nutrition': products['nutrition_grades'],
-                    'stores': products['stores_tags'],
+                    'stores': products['stores'],
                     'url': products['url']
                 }
-                list_products.append(self.info_products)
+            except KeyError as key_error:
+                print("key does not exist {}".format(key_error))
+            list_products.append(self.info_products)
         return list_products
