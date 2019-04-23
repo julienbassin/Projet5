@@ -3,20 +3,26 @@ import logging
 
 class Tree:
     """
-        Class qui gère l'affichage du menu
+        Class qui gere l'affichage du menu
     """
 
-    def __init__(self, name="root"):
-        self.node_parent = name
-        self.node_child = []
-        if node_child is not None:
-            for child in node_child:
-                self.add_node(child)
+    def __init__(self, value):
+        self.value = value
+        self.left_child = None
+        self.right_child = None
 
-    def add_node(self, node):
-        assert isinstance(node, Tree):
-        self.node_child.append(node)
+    def insert_left(self, value):
+        if self.left_child == None:
+            self.left_child = Tree(value)
+        else:
+            new_node = Tree(self.value)
+            new_node.left_child = self.left_child
+            self.left_child = new_node
 
-
-    def __repr__(self):
-        return self.node_parent
+    def insert_right(self, value):
+        if self.right_child == None:
+            self.right_child = Tree(value)
+        else:
+            new_node = Tree(self.value)
+            new_node.right_child = self.right_child
+            self.right_child = new_node

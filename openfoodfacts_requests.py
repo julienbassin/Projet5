@@ -36,7 +36,7 @@ class OpenFoodFactsRequest:
         except requests.exceptions.Timeout as errt:
             logging.log("Timeout Error:",errt)
         except requests.exceptions.RequestException as err:
-            logging.log("OOps: Something Else",err)
+            logging.log("Oops: Something Else",err)
         return result_json['products']
 
     def GetInfoProducts(self, object_json):
