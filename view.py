@@ -15,7 +15,7 @@ class Tree:
         if self.left_child == None:
             self.left_child = Tree(value)
         else:
-            new_node = Tree(self.value)
+            new_node = Tree(value)
             new_node.left_child = self.left_child
             self.left_child = new_node
 
@@ -23,6 +23,6 @@ class Tree:
         if self.right_child == None:
             self.right_child = Tree(value)
         else:
-            new_node = Tree(self.value)
+            new_node = Tree(value)
             new_node.right_child = self.right_child
             self.right_child = new_node
