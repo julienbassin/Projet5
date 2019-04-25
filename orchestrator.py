@@ -1,4 +1,4 @@
-from view import Tree
+from view import Menu, MenuItem
 
 import logging
 import json
@@ -14,26 +14,16 @@ for CatProducts in CAT_PRODUCTS:
 
         request = OpenFoodFactsRequest(PARAMS)
         final_json = request.Connect(URL)
-        #print(final_json)
         print(request.GetInfoProducts(final_json))
 
+if __name__ == '__main__':
+    main_menu = Menu("Projet 5 - OpenfoodFacts")
+    main_menu.add_item(MenuItem("1 - Quel aliment souhaitez-vous remplacer ?", lambda : MenuItem.press_enter("1")))
+    main_menu.add_item(MenuItem("2 - Retrouver mes aliments substitués", lambda : MenuItem.press_enter("2")))
+    sub_menu = Menu('Submenu')
+    sub_menu.add_item(MenuItem('Sub D', lambda : MenuItem.press_enter('D')))
+    sub_menu.add_item(MenuItem('Sub E', lambda : MenuItem.press_enter('E')))
+    main_menu.add_item(sub_menu)
+    main_menu.show_menu()
 
 
-
-
-
-a_node = Tree("Vue utilisateur")
-a_node.insert_right("menu-a")
-
-b_node = a_node.right_child
-b_node.insert_right("sous-menu-a")
-
-c_node = b_node.right_child
-c_node.insert_right("item-sous-menu-a")
-
-d_node = c_node.right_child
-
-print(a_node.value)
-print(b_node.value)
-print(c_node.value)
-print(d_node.value)

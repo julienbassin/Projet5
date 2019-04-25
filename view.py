@@ -1,28 +1,55 @@
 import logging
 
 
-class Tree:
-    """
-        Class qui gere l'affichage du menu
-    """
+class MenuItem():
 
-    def __init__(self, value):
-        self.value = value
-        self.left_child = None
-        self.right_child = None
+    def __init__(self, name, action):
+        self.name = name
+        self.action = action
 
-    def insert_left(self, value):
-        if self.left_child == None:
-            self.left_child = Tree(value)
-        else:
-            new_node = Tree(value)
-            new_node.left_child = self.left_child
-            self.left_child = new_node
+    def __str__(self):
+        return self.name
 
-    def insert_right(self, value):
-        if self.right_child == None:
-            self.right_child = Tree(value)
-        else:
-            new_node = Tree(value)
-            new_node.right_child = self.right_child
-            self.right_child = new_node
+    def cls(self):
+        print(80*'\n')
+
+    def read_number(self, text = ''):
+        INP='>>'
+        text += '\n' + INP if text else INP
+        str = ''
+        try:
+            str = input(text)
+            return int(str)
+        except ValueError:
+            self.press_enter("Error value: '{}'! Enter please the number".format(str))
+            return -1
+
+    def press_enter(self, str = ''):
+        str += '\nPress Enter'
+        input(str)
+
+
+class Menu(MenuItem):
+
+    def __init__(self, name):
+        MenuItem.__init__(self, name, self.show_menu)
+        self.items={}
+
+    def add_item(self, item):
+        self.items[len(self.items) + 1] = item
+
+    def show_menu(self):
+        choice = -1
+        while choice:
+            self.cls()
+            print(self)
+            choice = self.read_number()
+            if choice in self.items:
+                self.items[choice].action()
+
+    def __str__(self):
+        res_str = self.name + ':\n0: Exit'
+        for i in self.items.keys():
+            res_str += str.format('\n{}: {}', i, self.items[i].name)
+        return res_str
+
