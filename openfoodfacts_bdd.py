@@ -25,42 +25,62 @@ class OpenFoodFactsBdd:
         self.tables = ["users","products","categories","stores","favorites"]
 
 
-    def ConnectSQL(self):
+    def connect_sql(self):
         """
         Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
 
         """
         try:
             self.conn = mysql.connector.connect(host=self.server,user=self.user,passwd=self.password)
+            print("connexion bdd successfully ! ")
         except mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
+        return self.conn
 
-    def RequestSQL(self, req):
+    def request_sql(self, req):
         try:
             if req is not None:
                 mycursor = self.conn.cursor()
                 mycursor.execute(req)
-                mycursor.commit()
         except  mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
+            mycursor.rollback()
 
-    def CreateSQLDatabase(self, database="pur_beurre"):
+
+    def create_database(self, database="pur_beurre"):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
 
         """
-        self.RequestSQL("CREATE DATABASE {}".format(database))
-        databases = cursor.fetchall()
-            for database in databases:
-                print(database)
+        sql_database_req = "CREATE DATABASE IF NOT EXISTS {}".format(database)
+        self.request_sql(sql_database_req)
+
+    def create_tables_products(self):
+        pass
+
+    def create_tables(self):
+        #acceuillera toutes les methodes pour créer toutes les tables
+        self.drop_tables()
+        print("**** Deleting tables success ****")
 
 
-    def CreateSQLTables(self):
-        for table in self.tables:
-            self.RequestSQL("CREATE {}".format(table))
-        tables = cursor.fetchall()
-        for table in tables:
-            print(table)
+
+    def drop_tables(self):
+        sql_drop_tables_req = """ DROP TABLE IF EXISTS
+                          Categories, Categories_summary,
+                          Products, Products_categories_key,
+                          Products_categories_summary_key,
+                          Products_stores, Stores, Favorites;
+                      """
+        self.request_sql(sql_drop_tables_req)
+
+
+    def disconnect_sql(self):
+        try:
+            self.conn.close()
+            print("Connexion closed !")
+        except mysql.connector.Error as err:
+            print(err)
 
 #ajouter les informations sur les tables avec un dictionnaire
 #stocker les informations de bdd afin d'automatiser les requetes

@@ -11,7 +11,7 @@ class MenuItem():
         return self.name
 
     def cls(self):
-        print(80*'\n')
+        print(10*'\n')
 
     def read_number(self, text = ''):
         INP='>>'
