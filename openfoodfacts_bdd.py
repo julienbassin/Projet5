@@ -55,17 +55,37 @@ class OpenFoodFactsBdd:
         sql_database_req = "CREATE DATABASE IF NOT EXISTS {}".format(database)
         self.request_sql(sql_database_req)
 
-    def create_tables_products(self):
+    def create_table_products(self):
+        """
+            Method to create table products
+        """
+        pass
+
+    def create_table_categories(self):
+        """
+            Method to create table categories
+        """
+        pass
+
+    def create_table_stores(self):
+        """
+            Method to create table stores
+        """
         pass
 
     def create_tables(self):
-        #acceuillera toutes les methodes pour créer toutes les tables
+        """
+            Method to create all the tables for OpenfoodfactsBdd
+        """
         self.drop_tables()
         print("**** Deleting tables success ****")
 
 
 
     def drop_tables(self):
+        """
+            Method to drop all tables
+        """
         sql_drop_tables_req = """ DROP TABLE IF EXISTS
                           Categories, Categories_summary,
                           Products, Products_categories_key,
@@ -81,7 +101,3 @@ class OpenFoodFactsBdd:
             print("Connexion closed !")
         except mysql.connector.Error as err:
             print(err)
-
-#ajouter les informations sur les tables avec un dictionnaire
-#stocker les informations de bdd afin d'automatiser les requetes
-#attention, chaque possède des données differentes. l unpacking doit pouvoir être utilisé
