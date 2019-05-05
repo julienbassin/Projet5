@@ -22,8 +22,6 @@ class OpenFoodFactsBdd:
         self.password = password
         self.server = sqlserver
         self.conn = None
-        self.tables = ["users","products","categories","stores","favorites"]
-
 
     def connect_sql(self):
         """
@@ -44,7 +42,6 @@ class OpenFoodFactsBdd:
                 mycursor.execute(req)
         except  mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
-            mycursor.rollback()
 
 
     def create_database(self, database="pur_beurre"):
@@ -80,7 +77,11 @@ class OpenFoodFactsBdd:
         self.drop_tables()
         print("**** Deleting tables success ****")
 
+    def insert_products(self):
+        pass
 
+    def insert_categories(self):
+        pass
 
     def drop_tables(self):
         """
@@ -96,6 +97,8 @@ class OpenFoodFactsBdd:
 
 
     def disconnect_sql(self):
+        """
+        """
         try:
             self.conn.close()
             print("Connexion closed !")
