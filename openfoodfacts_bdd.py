@@ -40,7 +40,7 @@ class OpenFoodFactsBdd:
     def request_sql(self, req):
         try:
             if req is not None:
-                print("**** Creating tables ****, end='')
+                print("**** Creating tables ****", end='')
                 mycursor = self.conn.cursor()
                 mycursor.execute(req)
         except mysql.connector.Error as err:
