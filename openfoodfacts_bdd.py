@@ -62,6 +62,7 @@ class OpenFoodFactsBdd:
         self.request_sql(sql_database_req)
 
     def select_database(self,database="pur_beurre"):
+        print("**** Use Database Pur Beurre ****", end='')
         sql_select_database_req = "USE {}".format(database)
         self.request_sql(sql_select_database_req)
 
@@ -123,8 +124,6 @@ class OpenFoodFactsBdd:
         """
         self.drop_tables()
         print("**** Deleting tables success ****")
-        print("**** Use Database Pur Beurre ****", end='')
-        self.select_database()
         print("**** Creating tables ****", end='')
         self.create_table_products()
         self.create_table_categories()
