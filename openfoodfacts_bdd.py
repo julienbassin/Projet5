@@ -113,9 +113,9 @@ class OpenFoodFactsBdd:
         self.tables['drop_tables'] = (
                 "DROP TABLE IF EXISTS,"
                 "category, category_summary,"
-                "products, Products_category_key,"
-                "products_category_summary_key,"
-                "products_stores, stores, favorites;")
+                "product, Product_category_key,"
+                "product_category_summary_key,"
+                "product_stores, store, favorite;")
         self.request_sql(self.tables['drop_tables'])
 
     def create_tables(self):
@@ -128,10 +128,16 @@ class OpenFoodFactsBdd:
         self.create_table_categories()
         self.create_table_stores()
 
-    def insert_products(self):
+    def insert_product(self):
         pass
 
-    def insert_categories(self):
+    def insert_category(self):
+        pass
+
+    def inset_favorite(self):
+        pass
+
+    def insert_store(self):
         pass
 
     def disconnect_sql(self):
