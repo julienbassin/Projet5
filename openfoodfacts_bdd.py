@@ -81,7 +81,7 @@ class OpenFoodFactsBdd:
         """
         self.tables['category'] = (
             "CREATE TABLE `category` ("
-            "  `catefory_id` int(11) NOT NULL AUTO_INCREMENT,"
+            "  `category_id` int(11) NOT NULL AUTO_INCREMENT,"
             "  `name` date NOT NULL,"
             "   `category` varchar(255) NOT NULL,"
             "  PRIMARY KEY (`category`)"
