@@ -40,7 +40,6 @@ class OpenFoodFactsBdd:
     def request_sql(self, req):
         try:
             if req is not None:
-                print("**** Creating tables ****", end='')
                 mycursor = self.conn.cursor()
                 mycursor.execute(req)
         except mysql.connector.Error as err:
@@ -50,8 +49,6 @@ class OpenFoodFactsBdd:
                 print(err.msg)
         else:
             print("OK")
-
-
 
     def create_user_sql(self):
         pass
@@ -124,6 +121,7 @@ class OpenFoodFactsBdd:
         """
         self.drop_tables()
         print("**** Deleting tables success ****")
+        print("**** Creating tables ****", end='')
         self.create_table_products()
         self.create_table_categories()
         self.create_table_stores()
