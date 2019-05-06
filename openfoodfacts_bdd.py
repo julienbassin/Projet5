@@ -40,10 +40,16 @@ class OpenFoodFactsBdd:
     def request_sql(self, req):
         try:
             if req is not None:
+                print("**** Creating tables ****, end='')
                 mycursor = self.conn.cursor()
                 mycursor.execute(req)
-        except  mysql.connector.Error as err:
-            logger.error("Something went wrong: {}".format(err))
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                print("already exists.")
+            else:
+                print(err.msg)
+        else:
+            print("OK")
 
 
 
