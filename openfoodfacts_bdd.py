@@ -111,11 +111,11 @@ class OpenFoodFactsBdd:
             Method to drop all tables
         """
         self.tables['drop_tables'] = (
-                            "DROP TABLE IF EXISTS,"
-                            "Categories, Categories_summary,"
-                            "Products, Products_categories_key,"
-                            "Products_categories_summary_key,"
-                            "Products_stores, Stores, Favorites;")
+                "DROP TABLE IF EXISTS,"
+                "category, category_summary,"
+                "products, Products_category_key,"
+                "products_category_summary_key,"
+                "products_stores, stores, favorites;")
         self.request_sql(self.tables['drop_tables'])
 
     def create_tables(self):
