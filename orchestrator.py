@@ -21,6 +21,7 @@ for CatProducts in CAT_PRODUCTS:
 bdd = OpenFoodFactsBdd("root","Passw0rd+","localhost")
 bdd.connect_sql()
 bdd.create_database()
+bdd.create_tables()
 
 
 

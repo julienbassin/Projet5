@@ -61,6 +61,10 @@ class OpenFoodFactsBdd:
         sql_database_req = "CREATE DATABASE IF NOT EXISTS {} DEFAULT CHARACTER SET 'utf8'".format(database)
         self.request_sql(sql_database_req)
 
+    def select_database(self,database="pur_beurre"):
+        sql_select_database_req = "USE {}".format(database)
+        self.request_sql(sql_select_database_req)
+
     def create_table_products(self):
         """
             Method to create table products
@@ -109,10 +113,8 @@ class OpenFoodFactsBdd:
         """
         self.tables['drop_tables'] = (
                 "DROP TABLE IF EXISTS,"
-                "category, category_summary,"
-                "product, Product_category_key,"
-                "product_category_summary_key,"
-                "product_stores, store, favorite;")
+                "category, product"
+                "store, favorite;")
         self.request_sql(self.tables['drop_tables'])
 
     def create_tables(self):
@@ -121,6 +123,8 @@ class OpenFoodFactsBdd:
         """
         self.drop_tables()
         print("**** Deleting tables success ****")
+        print("**** Use Database Pur Beurre ****", end='')
+        self.select_database()
         print("**** Creating tables ****", end='')
         self.create_table_products()
         self.create_table_categories()
