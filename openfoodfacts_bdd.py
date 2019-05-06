@@ -106,12 +106,27 @@ class OpenFoodFactsBdd:
             ") ENGINE=InnoDB")
         self.request_sql(self.tables['store'])
 
+    def drop_tables(self):
+        """
+            Method to drop all tables
+        """
+        self.tables['drop_tables'] = (
+                            "DROP TABLE IF EXISTS,"
+                            "Categories, Categories_summary,"
+                            "Products, Products_categories_key,"
+                            "Products_categories_summary_key,"
+                            "Products_stores, Stores, Favorites;")
+        self.request_sql(self.tables['drop_tables'])
+
     def create_tables(self):
         """
             Method to create all the tables for OpenfoodfactsBdd
         """
         self.drop_tables()
         print("**** Deleting tables success ****")
+        self.create_table_products()
+        self.create_table_categories()
+        self.create_table_stores()
 
     def insert_products(self):
         pass
@@ -119,21 +134,9 @@ class OpenFoodFactsBdd:
     def insert_categories(self):
         pass
 
-    def drop_tables(self):
-        """
-            Method to drop all tables
-        """
-        sql_drop_tables_req = """ DROP TABLE IF EXISTS
-                          Categories, Categories_summary,
-                          Products, Products_categories_key,
-                          Products_categories_summary_key,
-                          Products_stores, Stores, Favorites;
-                      """
-        self.request_sql(sql_drop_tables_req)
-
-
     def disconnect_sql(self):
         """
+            Method to disconnect from the database
         """
         try:
             self.conn.close()
