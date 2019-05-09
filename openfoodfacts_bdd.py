@@ -73,13 +73,12 @@ class OpenFoodFactsBdd:
         self.tables['product'] = (
             "CREATE TABLE `product` ("
             "  `product_id` int(11) NOT NULL AUTO_INCREMENT,"
-            "  `name` date NOT NULL,"
+            "  `name` varchar(255) NOT NULL,"
             "  `barcode` varchar(14) NOT NULL,"
             "  `grade` varchar(16) NOT NULL,"
-            "  `website` enum('M','F') NOT NULL,"
-            "  `store` date NOT NULL,"
+            "  `store` varchar(255) NOT NULL,"
             "   `category` varchar(255) NOT NULL,"
-            "  PRIMARY KEY (`product`)"
+            "  PRIMARY KEY (`product_id`)"
             ") ENGINE=InnoDB")
         self.request_sql(self.tables['product'])
 
@@ -90,9 +89,8 @@ class OpenFoodFactsBdd:
         self.tables['category'] = (
             "CREATE TABLE `category` ("
             "  `category_id` int(11) NOT NULL AUTO_INCREMENT,"
-            "  `name` date NOT NULL,"
-            "   `category` varchar(255) NOT NULL,"
-            "  PRIMARY KEY (`category`)"
+            "  `name` varchar(255) NOT NULL,"
+            "  PRIMARY KEY (`category_id`)"
             ") ENGINE=InnoDB")
         self.request_sql(self.tables['category'])
 
@@ -101,10 +99,10 @@ class OpenFoodFactsBdd:
             Method to create table stores
         """
         self.tables['store'] = (
-            "CREATE TABLE `product` ("
+            "CREATE TABLE `store` ("
             "  `store_id` int(11) NOT NULL AUTO_INCREMENT,"
-            "  `name` date NOT NULL,"
-            "  PRIMARY KEY (`store`)"
+            "  `name` varchar(255) NOT NULL,"
+            "  PRIMARY KEY (`store_id`)"
             ") ENGINE=InnoDB")
         self.request_sql(self.tables['store'])
 
@@ -113,7 +111,7 @@ class OpenFoodFactsBdd:
             Method to drop all tables
         """
         self.tables['drop_tables'] = (
-                "DROP TABLE IF EXISTS,"
+                "DROP TABLE IF EXISTS "
                 "category, product"
                 "store, favorite;")
         self.request_sql(self.tables['drop_tables'])
@@ -122,8 +120,8 @@ class OpenFoodFactsBdd:
         """
             Method to create all the tables for OpenfoodfactsBdd
         """
-        self.drop_tables()
         print("**** Deleting tables success ****")
+        self.drop_tables()
         print("**** Creating tables ****", end='')
         self.create_table_products()
         self.create_table_categories()
