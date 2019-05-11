@@ -126,8 +126,8 @@ class OpenFoodFactsBdd:
         """
         self.tables['drop_tables'] = (
                 "DROP TABLE IF EXISTS "
-                "category, product"
-                "store, favorite;")
+                "product,favorite"
+                "product_favorite;")
         self.request_sql(self.tables['drop_tables'])
 
     def create_tables(self):
@@ -141,8 +141,9 @@ class OpenFoodFactsBdd:
         self.create_table_favorites()
         self.create_table_product_favorite()
 
-    def insert_products(self, product):
+    def insert_products(self, products):
         pass
+
 
     def insert_favorites(self):
         pass
@@ -150,8 +151,10 @@ class OpenFoodFactsBdd:
     def insert_products_favorites(self):
         pass
 
-    def insert_rows(self, product):
-        pass
+    def insert_rows(self, products):
+        for product in products:
+            self.insert_products(*product)
+            self.insert_products_favorites(*product)
 
     def disconnect_sql(self):
         """
