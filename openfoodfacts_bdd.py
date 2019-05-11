@@ -50,9 +50,6 @@ class OpenFoodFactsBdd:
         else:
             print("OK")
 
-    def create_user_sql(self):
-        pass
-
     def create_database(self, database="pur_beurre"):
         """
         Dans create_mysql_db, initialiser les params pour créer la bdd
@@ -70,41 +67,58 @@ class OpenFoodFactsBdd:
         """
             Method to create table products
         """
-        self.tables['product'] = (
+        self.tables['products'] = (
             "CREATE TABLE `product` ("
             "  `product_id` int(11) NOT NULL AUTO_INCREMENT,"
             "  `name` varchar(255) NOT NULL,"
-            "  `barcode` varchar(14) NOT NULL,"
-            "  `grade` varchar(16) NOT NULL,"
+            "  `barcode` varchar(255) NOT NULL,"
+            "  `grade` varchar(255) NOT NULL,"
             "  `store` varchar(255) NOT NULL,"
             "   `category` varchar(255) NOT NULL,"
             "  PRIMARY KEY (`product_id`)"
             ") ENGINE=InnoDB")
-        self.request_sql(self.tables['product'])
+        self.request_sql(self.tables['products'])
 
-    def create_table_categories(self):
-        """
-            Method to create table categories
-        """
-        self.tables['category'] = (
-            "CREATE TABLE `category` ("
-            "  `category_id` int(11) NOT NULL AUTO_INCREMENT,"
-            "  `name` varchar(255) NOT NULL,"
-            "  PRIMARY KEY (`category_id`)"
-            ") ENGINE=InnoDB")
-        self.request_sql(self.tables['category'])
-
-    def create_table_stores(self):
+    def create_table_favorites(self):
         """
             Method to create table stores
         """
-        self.tables['store'] = (
-            "CREATE TABLE `store` ("
-            "  `store_id` int(11) NOT NULL AUTO_INCREMENT,"
-            "  `name` varchar(255) NOT NULL,"
-            "  PRIMARY KEY (`store_id`)"
-            ") ENGINE=InnoDB")
+        self.tables['favorites'] = (
+           "CREATE TABLE IF NOT EXISTS `mydb`.`product` ("
+            "`product_id` INT NOT NULL AUTO_INCREMENT,"
+            "`name` VARCHAR(255) NOT NULL,"
+            "`category` VARCHAR(255) NOT NULL,"
+            "`store` VARCHAR(255) NOT NULL,"
+            "`website` VARCHAR(255) NOT NULL,"
+            "`grade` VARCHAR(1) NOT NULL,"
+            "`barcode` INT NOT NULL,"
+            "PRIMARY KEY (`product_id`))"
+            "ENGINE = InnoDB")
         self.request_sql(self.tables['store'])
+
+    def create_table_product_favorite(self):
+        """
+            this method create a table for favorites products
+        """
+        self.tables['products_favorites'] = (
+            "CREATE TABLE IF NOT EXISTS `mydb`.`Product_has_favorite_product` ("
+            "`Product_product_id` INT NOT NULL,"
+            "`favorite_product_favorite_id` INT NOT NULL,"
+            "PRIMARY KEY (`Product_product_id`, `favorite_product_favorite_id`),"
+            "INDEX `fk_Product_has_favorite_product_favorite_product1_idx` (`favorite_product_favorite_id` ASC) VISIBLE,"
+            "INDEX `fk_Product_has_favorite_product_Product_idx` (`Product_product_id` ASC) VISIBLE,"
+            "CONSTRAINT `fk_Product_has_favorite_product_Product`"
+                "FOREIGN KEY (`Product_product_id`)"
+                "REFERENCES `mydb`.`product` (`product_id`)"
+                "ON DELETE NO ACTION"
+                "ON UPDATE NO ACTION,"
+            "CONSTRAINT `fk_Product_has_favorite_product_favorite_product1`"
+                "FOREIGN KEY (`favorite_product_favorite_id`)"
+                "REFERENCES `mydb`.`favorite_product` (`favorite_id`)"
+                "ON DELETE NO ACTION"
+                "ON UPDATE NO ACTION)"
+            "ENGINE = InnoDB")
+        self.request_sql(self.tables['products_favorites'])
 
     def drop_tables(self):
         """
@@ -124,19 +138,19 @@ class OpenFoodFactsBdd:
         self.drop_tables()
         print("**** Creating tables ****", end='')
         self.create_table_products()
-        self.create_table_categories()
-        self.create_table_stores()
+        self.create_table_favorites()
+        self.create_table_product_favorite()
 
-    def insert_product(self):
+    def insert_products(self, product):
         pass
 
-    def insert_category(self):
+    def insert_favorites(self):
         pass
 
-    def inset_favorite(self):
+    def insert_products_favorites(self):
         pass
 
-    def insert_store(self):
+    def insert_rows(self, product):
         pass
 
     def disconnect_sql(self):

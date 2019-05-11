@@ -10,12 +10,7 @@ from openfoodfacts_requests import OpenFoodFactsRequest
 from config import URL,PARAMS, CAT_PRODUCTS
 
 
-for CatProducts in CAT_PRODUCTS:
-        PARAMS["search_terms"] = CatProducts
-        PARAMS["tag_0"] = CatProducts
-        request = OpenFoodFactsRequest(PARAMS)
-        final_json = request.Connect(URL)
-        print(request.GetInfoProducts(final_json))
+
 
 
 bdd = OpenFoodFactsBdd("root","Passw0rd+","localhost")
@@ -64,4 +59,3 @@ main_menu.add_item(sub_menu_substitued_food)
 main_menu.show_menu()
 
 bdd.disconnect_sql()
-
