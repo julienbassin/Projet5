@@ -3,7 +3,6 @@ import logging
 
 from mysql.connector import errorcode
 from logging.handlers import RotatingFileHandler
-from openfoodfacts_requests import OpenFoodFactsRequest
 
 logger = logging.getLogger()
 logger.setLevel(logging.DEBUG)
@@ -22,7 +21,6 @@ class OpenFoodFactsBdd:
         self.password = password
         self.server = sqlserver
         self.conn = None
-        self.tables = {}
 
     def connect_sql(self):
         """
@@ -47,8 +45,6 @@ class OpenFoodFactsBdd:
                 print("already exists.")
             else:
                 print(err.msg)
-        else:
-            print("OK")
 
     def create_database(self, database="pur_beurre"):
         """
@@ -63,11 +59,12 @@ class OpenFoodFactsBdd:
         sql_select_database_req = "USE {}".format(database)
         self.request_sql(sql_select_database_req)
 
+#utiliser un fichier json/csv pour les tables
     def create_table_products(self):
         """
             Method to create table products
         """
-        self.tables['products'] = (
+        sql_table_product_req = (
             "CREATE TABLE `product` ("
             "  `product_id` int(11) NOT NULL AUTO_INCREMENT,"
             "  `name` varchar(255) NOT NULL,"
@@ -77,13 +74,13 @@ class OpenFoodFactsBdd:
             "   `category` varchar(255) NOT NULL,"
             "  PRIMARY KEY (`product_id`)"
             ") ENGINE=InnoDB")
-        self.request_sql(self.tables['products'])
+        self.request_sql(sql_table_product_req)
 
     def create_table_favorites(self):
         """
             Method to create table stores
         """
-        self.tables['favorites'] = (
+        sql_table_favorite_req = (
            "CREATE TABLE IF NOT EXISTS `mydb`.`product` ("
             "`product_id` INT NOT NULL AUTO_INCREMENT,"
             "`name` VARCHAR(255) NOT NULL,"
@@ -94,13 +91,13 @@ class OpenFoodFactsBdd:
             "`barcode` INT NOT NULL,"
             "PRIMARY KEY (`product_id`))"
             "ENGINE = InnoDB")
-        self.request_sql(self.tables['store'])
+        self.request_sql(sql_table_favorite_req)
 
     def create_table_product_favorite(self):
         """
             this method create a table for favorites products
         """
-        self.tables['products_favorites'] = (
+        sql_table_product_favorite_req = (
             "CREATE TABLE IF NOT EXISTS `mydb`.`Product_has_favorite_product` ("
             "`Product_product_id` INT NOT NULL,"
             "`favorite_product_favorite_id` INT NOT NULL,"
@@ -118,17 +115,17 @@ class OpenFoodFactsBdd:
                 "ON DELETE NO ACTION"
                 "ON UPDATE NO ACTION)"
             "ENGINE = InnoDB")
-        self.request_sql(self.tables['products_favorites'])
+        self.request_sql(sql_table_product_favorite_req)
 
     def drop_tables(self):
         """
             Method to drop all tables
         """
-        self.tables['drop_tables'] = (
+        sql_table_drop_req = (
                 "DROP TABLE IF EXISTS "
                 "product,favorite"
                 "product_favorite;")
-        self.request_sql(self.tables['drop_tables'])
+        self.request_sql(sql_table_drop_req)
 
     def create_tables(self):
         """
@@ -141,7 +138,7 @@ class OpenFoodFactsBdd:
         self.create_table_favorites()
         self.create_table_product_favorite()
 
-    def insert_products(self, products):
+    def insert_products(self, id, name, category, store, website, grade, barcode):
         pass
 
 

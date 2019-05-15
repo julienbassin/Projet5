@@ -2,3 +2,5 @@
 /Include
 /lib
 /pyenv.cfg
+pip-selfcheck.json
+pyvenv.cfg

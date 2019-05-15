@@ -1,5 +1,4 @@
 import logging
-import json
 
 import mysql.connector
 
@@ -10,16 +9,13 @@ from openfoodfacts_requests import OpenFoodFactsRequest
 from config import URL,PARAMS, CAT_PRODUCTS
 
 
+database = OpenFoodFactsBdd("root","Passw0rd+","localhost")
 
-
-
-bdd = OpenFoodFactsBdd("root","Passw0rd+","localhost")
-bdd.connect_sql()
-bdd.create_database()
-bdd.select_database()
-bdd.create_tables()
-
-
+database.connect_sql()
+database.create_database()
+database.select_database()
+database.create_tables()
+database.disconnect_sql()
 
 """
 Menu princpal de l'application
@@ -50,12 +46,14 @@ sub_menu_replace_food.add_item(sub_menu_replace_food_category)
 """
 Sub-Menu of substitued foods
 """
-sub_menu_substitued_food = Menu("Retrouver mes aliments substitués")
+sub_menu_substitued_food = Menu("Retrouver mes favoris")
 sub_menu_substitued_food.add_item(MenuItem('Sub D', lambda : MenuItem.press_enter('D')))
 sub_menu_substitued_food.add_item(MenuItem('Sub E', lambda : MenuItem.press_enter('E')))
 
+"""
+    Main Menu
+"""
 main_menu.add_item(sub_menu_replace_food)
 main_menu.add_item(sub_menu_substitued_food)
 main_menu.show_menu()
 
-bdd.disconnect_sql()
