@@ -98,7 +98,7 @@ class OpenFoodFactsBdd:
         print("**** Creating tables ****\n", end='')
         self.create_sql_tables()
 
-    def insert_products(self, id, name, category, barcode, store, url, grade):
+    def insert_products(self, name, category, barcode, store, url, grade):
         """
             Method to insert all the products into the product's table
         """
@@ -115,7 +115,7 @@ class OpenFoodFactsBdd:
     def insert_rows(self, products):
         for product in products:
             self.insert_products(*product)
-            self.insert_products_favorites(*product)
+            #self.insert_products_favorites(*product)
 
     def disconnect_sql(self):
         """

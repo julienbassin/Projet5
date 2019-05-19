@@ -14,7 +14,7 @@ for CatProducts in CAT_PRODUCTS:
         #print(PARAMS["search_terms"])
         request = OpenFoodFactsRequest(PARAMS)
         final_json = request.Connect(URL)
-        request.GetInfoProducts(final_json)
+        products = request.GetInfoProducts(final_json)
 
 database = OpenFoodFactsBdd()
 
@@ -23,6 +23,9 @@ database.create_database()
 database.select_database()
 database.create_tables()
 
+database.insert_rows(products)
+
+database.disconnect_sql()
 
 """
 Menu princpal de l'application
@@ -66,4 +69,3 @@ main_menu.add_item(sub_menu_replace_food)
 main_menu.add_item(sub_menu_substitued_food)
 main_menu.show_menu()
 
-database.disconnect_sql()

@@ -52,11 +52,10 @@ class OpenFoodFactsRequest:
         for products in object_json:
             if products.get('nutrition_grades') and products.get('product_name_fr') and products.get('stores'):
                     self.products = {
-                        'code' : products['code'],
-                        'product_name_fr': products['product_name_fr'],
+                        'barcode' : products['code'],
+                        'name': products['product_name_fr'],
                         'categories' : products['categories_tags'],
-                        'countries': products['countries_tags'],
-                        'nutrition_scores': products['nutrition_grades'],
+                        'grade': products['nutrition_grades'],
                         'stores': products['stores'],
                         'url': products['url']
                 }
