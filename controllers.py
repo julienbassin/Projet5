@@ -8,8 +8,15 @@ from openfoodfacts_bdd import OpenFoodFactsBdd
 from openfoodfacts_requests import OpenFoodFactsRequest
 from config import URL,PARAMS, CAT_PRODUCTS
 
+for CatProducts in CAT_PRODUCTS:
+        PARAMS["search_terms"] = CatProducts
+        PARAMS["tag_0"] = CatProducts
+        #print(PARAMS["search_terms"])
+        request = OpenFoodFactsRequest(PARAMS)
+        final_json = request.Connect(URL)
+        request.GetInfoProducts(final_json)
 
-database = OpenFoodFactsBdd("root","Passw0rd+","localhost")
+database = OpenFoodFactsBdd()
 
 database.connect_sql()
 database.create_database()
@@ -27,8 +34,10 @@ Sub-Menu of category
 """
 #essyer de boucle sur les categories puis permettre l'envoie d'un nombre
 #effectuer une action qui va récupérer les informations en bdd
+#for idx, cat in enumerate(len(CAT_PRODUCTS)):
+    #sub_menu_replace_food.add_item(MenuItem(cat, lambda: MenuItem.press_enter(idx)))
 
-sub_menu_replace_food_category = Menu("Selectionner une catégorie")
+sub_menu_replace_food_category = Menu("Retrouver mes aliments substitués")
 sub_menu_replace_food_category.add_item(MenuItem('Selectionner une catégorie', lambda : MenuItem.press_enter('1')))
 sub_menu_replace_food_category.add_item(MenuItem('Riz', lambda: MenuItem.press_enter('1')))
 sub_menu_replace_food_category.add_item(MenuItem('Pates', lambda: MenuItem.press_enter('2')))

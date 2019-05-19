@@ -1,4 +1,5 @@
 URL = "https://fr.openfoodfacts.org/cgi/search.pl"
+
 CAT_PRODUCTS = ('riz',
                 'pates',
                 'pizzas',
@@ -18,3 +19,9 @@ PARAMS = {
                 "json"          : '1',
                 "page_size"     : 20
         }
+
+DATABASE_CONFIG = {
+                "host"          : "localhost",
+                "user"          : "root",
+                "password"      : "Passw0rd+"
+                }
