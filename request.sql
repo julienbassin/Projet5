@@ -16,7 +16,7 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `name` VARCHAR(255) NOT NULL,
   `barcode` INT NOT NULL,
   `store` VARCHAR(255) NOT NULL,
-  `website` VARCHAR(255) NOT NULL,
+  `url` VARCHAR(255) NOT NULL,
   `grade` VARCHAR(1) NOT NULL,
   `category` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`product_id`))
@@ -26,7 +26,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `mydb`.`Category`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `category` (
+CREATE TABLE IF NOT EXISTS `Category` (
   `category_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`category_id`))
@@ -90,7 +90,7 @@ ENGINE = InnoDB;
 -- -----------------------------------------------------
 -- Table `Favoris`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `Favoris` (
+CREATE TABLE IF NOT EXISTS `Favorite` (
   `substitute_product_id` INT NOT NULL,
   `substituted_product_id` INT NOT NULL,
   PRIMARY KEY (`substitute_product_id`, `substituted_product_id`),

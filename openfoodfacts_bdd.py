@@ -29,7 +29,7 @@ class OpenFoodFactsBdd:
 
         """
         try:
-            self.conn = mysql.connector.connect(host=config.DATABASE_CONFIG['server'],user=config.DATABASE_CONFIG['user'],passwd=config.DATABASE_CONFIG['password'])
+            self.conn = mysql.connector.connect(host=config.DATABASE_CONFIG['host'],user=config.DATABASE_CONFIG['user'],passwd=config.DATABASE_CONFIG['password'])
             print("connexion bdd successfully ! ")
         except mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
@@ -73,19 +73,20 @@ class OpenFoodFactsBdd:
         """
         with open(self.file) as sql_file:
             object_sql = sql_file.read()
-            sql_file.close()
             sql_commands = object_sql.split(";")
             for command in sql_commands:
-                self.request_sql(command)
+                print(command)
+            sql_file.close()
 
     def drop_tables(self):
         """
             Method to drop all tables
         """
         sql_table_drop_req = (
+                "SET FOREIGN_KEY_CHECKS = 0;"
                 "DROP TABLE IF EXISTS "
-                "product,favorite"
-                "product_favorite;")
+                "Product,Favorite, Store"
+                "Product_Category, Product_Store;")
         self.request_sql(sql_table_drop_req)
 
     def create_tables(self):
@@ -95,7 +96,7 @@ class OpenFoodFactsBdd:
         print("**** Deleting tables success ****")
         self.drop_tables()
         print("**** Creating tables ****", end='')
-        self.create_tables()
+        self.create_sql_tables()
 
     def insert_products(self, id, name, category, barcode, store, url, grade):
         """

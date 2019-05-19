@@ -22,7 +22,7 @@ database.connect_sql()
 database.create_database()
 database.select_database()
 database.create_tables()
-database.disconnect_sql()
+
 
 """
 Menu princpal de l'application
@@ -66,3 +66,4 @@ main_menu.add_item(sub_menu_replace_food)
 main_menu.add_item(sub_menu_substitued_food)
 main_menu.show_menu()
 
+database.disconnect_sql()
