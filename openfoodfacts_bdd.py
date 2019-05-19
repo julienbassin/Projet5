@@ -63,7 +63,7 @@ class OpenFoodFactsBdd:
         """
             Method
         """
-        print("**** Use Database Pur Beurre ****", end='')
+        print("**** Use Database Pur Beurre ****\n", end='')
         sql_select_database_req = "USE {}".format(database)
         self.request_sql(sql_select_database_req)
 
