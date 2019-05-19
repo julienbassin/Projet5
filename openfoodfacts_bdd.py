@@ -75,7 +75,7 @@ class OpenFoodFactsBdd:
             object_sql = sql_file.read()
             sql_commands = object_sql.split(";")
             for command in sql_commands:
-                print(command)
+                self.request_sql(command)
             sql_file.close()
 
     def drop_tables(self):
@@ -93,9 +93,9 @@ class OpenFoodFactsBdd:
         """
             Method to create all the tables for OpenfoodfactsBdd
         """
-        print("**** Deleting tables success ****")
+        print("**** Deleting tables success ****\n")
         self.drop_tables()
-        print("**** Creating tables ****", end='')
+        print("**** Creating tables ****\n", end='')
         self.create_sql_tables()
 
     def insert_products(self, id, name, category, barcode, store, url, grade):
