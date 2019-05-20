@@ -43,9 +43,9 @@ class OpenFoodFactsBdd:
 
         try:
             if req is not None:
-                mycursor = self.conn.cursor()
+                mycursor = self.conn.cursor(prepared=True)
                 mycursor.execute(req, multi=True)
-                mycursor.commit()
+                self.conn.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")
@@ -77,17 +77,12 @@ class OpenFoodFactsBdd:
             sql_commands = object_sql.split(";")
             for command in sql_commands:
                 self.request_sql(command)
-            sql_file.close()
 
     def drop_tables(self):
         """
             Method to drop all tables
         """
-        sql_table_drop_req = (
-                "SET FOREIGN_KEY_CHECKS = 0;"
-                "DROP TABLE IF EXISTS "
-                "Product,Favorite, Store"
-                "Product_Category, Product_Store;")
+        sql_table_drop_req = "SET FOREIGN_KEY_CHECKS = 0; DROP TABLE IF EXISTS Product,Favorite, Store, Product_Category, Product_Store;"
         self.request_sql(sql_table_drop_req)
 
     def create_tables(self):
@@ -99,32 +94,33 @@ class OpenFoodFactsBdd:
         print("**** Creating tables ****\n", end='')
         self.create_sql_tables()
 
-    def insert_products(self, barcode, name, category,grade, store, url):
+    def insert_products(self, name):
         """
             Method to insert all the products into the product's table
         """
-        sql_insert_products = "INSERT INTO product(barcode,name,category,grade,store,url) VALUES ({}, {}, {}, {}, {}, {})".format(barcode, name, category, grade, store, url)
+        sql_insert_products = "INSERT INTO product(barcode,name,category,grade,store,url) VALUES (11, 'testname', 'testcategory', 'c', 'teststore', 'testurl')"
+        print(sql_insert_products)
         self.request_sql(sql_insert_products)
 
     def insert_favorites(self):
         pass
 
-	def insert_stores(self):
-		pass
+    def insert_stores(self):
+        pass
 
-	def insert_categories(self):
-		pass
+    def insert_categories(self):
+        pass
 
-	def insert_products_categories(self):
-		pass
+    def insert_products_categories(self):
+        pass
 
-	def insert_products_stores(self):
-		pass
-
+    def insert_products_stores(self):
+        pass
 
 
     def insert_rows(self, products):
         for product in products:
+            print(product)
             self.insert_products(*product)
 			#self.insert_favorites(*product)
 			#self.insert_stores(*product)
@@ -137,7 +133,8 @@ class OpenFoodFactsBdd:
             Method to disconnect from the database
         """
         try:
-            self.conn.close()
-            print("Connexion closed !")
+            if self.conn.is_connected():
+                self.conn.close()
+                print("Connexion closed !")
         except mysql.connector.Error as err:
             print(err)

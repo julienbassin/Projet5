@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `Favorite` (
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_Product_has_Product_Product2`
     FOREIGN KEY (`substituted_product_id`)
-    REFERENCES `mydb`.`Product` (`product_id`)
+    REFERENCES `Product` (`product_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;

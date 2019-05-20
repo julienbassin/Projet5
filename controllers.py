@@ -16,14 +16,14 @@ for CatProducts in CAT_PRODUCTS:
         final_json = request.Connect(URL)
         products = request.GetInfoProducts(final_json)
 
-database = OpenFoodFactsBdd()
+database = OpenFoodFactsBdd("request.sql")
 
 database.connect_sql()
 database.create_database()
 database.select_database()
 database.create_tables()
 
-database.insert_rows(products)
+#database.insert_rows("testnom")
 
 database.disconnect_sql()
 
