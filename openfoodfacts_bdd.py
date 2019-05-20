@@ -15,13 +15,13 @@ logger.addHandler(stream_handler)
 
 class OpenFoodFactsBdd:
 
-    def __init__(self):
+    def __init__(self, file):
         """
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
         self.conn = None
-        self.file = "request.sql"
+        self.file = file
 
     def connect_sql(self):
         """
@@ -44,7 +44,7 @@ class OpenFoodFactsBdd:
         try:
             if req is not None:
                 mycursor = self.conn.cursor()
-                mycursor.execute(req)
+                mycursor.execute(req, multi=True)
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")
@@ -98,24 +98,38 @@ class OpenFoodFactsBdd:
         print("**** Creating tables ****\n", end='')
         self.create_sql_tables()
 
-    def insert_products(self, name, category, barcode, store, url, grade):
+    def insert_products(self, barcode, name, category,grade, store, url):
         """
             Method to insert all the products into the product's table
         """
-
-        sql_insert_products = "INSERT INTO product VALUES ({}, {}, {}, {}, {}, {})".format(name, category, barcode, store, url, grade)
+        sql_insert_products = "INSERT INTO product(barcode,name,category,grade,store,url) VALUES ({}, {}, {}, {}, {}, {})".format(barcode, name, category, grade, store, url)
         self.request_sql(sql_insert_products)
 
     def insert_favorites(self):
-        pass
+        pass    
 
-    def insert_products_favorites(self):
-        pass
+	def insert_stores(self):
+		pass
+
+	def insert_categories(self):
+		pass
+
+	def insert_products_categories(self):
+		pass
+
+	def insert_products_stores(self):
+		pass
+
+
 
     def insert_rows(self, products):
         for product in products:
             self.insert_products(*product)
-            #self.insert_products_favorites(*product)
+			#self.insert_favorites(*product)
+			#self.insert_stores(*product)
+			#self.insert_categories(*product)
+            #self.insert_products_categories(*product)
+			#self.insert_products_stores(*product)
 
     def disconnect_sql(self):
         """
