@@ -45,6 +45,7 @@ class OpenFoodFactsBdd:
             if req is not None:
                 mycursor = self.conn.cursor()
                 mycursor.execute(req, multi=True)
+                mycursor.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")
@@ -106,7 +107,7 @@ class OpenFoodFactsBdd:
         self.request_sql(sql_insert_products)
 
     def insert_favorites(self):
-        pass    
+        pass
 
 	def insert_stores(self):
 		pass
