@@ -43,8 +43,28 @@ class OpenFoodFactsBdd:
 
         try:
             if req is not None:
-                mycursor = self.conn.cursor(prepared=True)
-                mycursor.execute(req, multi=True)
+                mycursor = self.conn.cursor()
+                mycursor.execute(req)
+                self.conn.commit()
+        except mysql.connector.Error as err:
+            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
+                print("already exists.")
+            else:
+                print(err.msg)
+
+    def requests_sql(self, req):
+        """
+            Method which is used for the request
+        """
+
+        try:
+            if req is not None:
+                mycursor = self.conn.cursor()
+                results =  mycursor.execute(req, multi=True)
+                for cur in results:
+                    print('cursor:', cur)
+                    if cur.with_rows:
+                        print('result:', cur.fetchall())
                 self.conn.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
@@ -73,16 +93,13 @@ class OpenFoodFactsBdd:
             Method
         """
         with open(self.file) as sql_file:
-            object_sql = sql_file.read()
-            sql_commands = object_sql.split(";")
-            for command in sql_commands:
-                self.request_sql(command)
+            self.request_sql(sql_file.read())
 
     def drop_tables(self):
         """
             Method to drop all tables
         """
-        sql_table_drop_req = "SET FOREIGN_KEY_CHECKS = 0; DROP TABLE IF EXISTS Product,Favorite, Store, Product_Category, Product_Store;"
+        sql_table_drop_req = "drop table if exists Product,Favorite,Category, Store, Product_Category, Product_store;"
         self.request_sql(sql_table_drop_req)
 
     def create_tables(self):
@@ -94,13 +111,13 @@ class OpenFoodFactsBdd:
         print("**** Creating tables ****\n", end='')
         self.create_sql_tables()
 
-    def insert_products(self, name):
+    def insert_products(self, product):
         """
             Method to insert all the products into the product's table
         """
-        sql_insert_products = "INSERT INTO product(barcode,name,category,grade,store,url) VALUES (11, 'testname', 'testcategory', 'c', 'teststore', 'testurl')"
+        sql_insert_products = "INSERT INTO product (barcode,name,category,grade,store,url) VALUES ({}, {}, {}, {}, {}, {})".format(11,'toto', 'test', 'testurl', 'c','meat')
         print(sql_insert_products)
-        self.request_sql(sql_insert_products)
+        self.requests_sql(sql_insert_products)
 
     def insert_favorites(self):
         pass
@@ -120,8 +137,7 @@ class OpenFoodFactsBdd:
 
     def insert_rows(self, products):
         for product in products:
-            print(product)
-            self.insert_products(*product)
+            self.insert_products(product)
 			#self.insert_favorites(*product)
 			#self.insert_stores(*product)
 			#self.insert_categories(*product)

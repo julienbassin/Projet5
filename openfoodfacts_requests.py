@@ -54,9 +54,9 @@ class OpenFoodFactsRequest:
                     self.products = {
                         'barcode' : products['code'],
                         'name': products['product_name_fr'],
-                        'categories' : products['categories_tags'],
+                        #'category' : products['categories_tags'],
                         'grade': products['nutrition_grades'],
-                        'stores': products['stores'],
+                        'store': products['stores'],
                         'url': products['url']
                 }
             list_products.append(self.products)

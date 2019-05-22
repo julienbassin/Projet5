@@ -23,9 +23,9 @@ database.create_database()
 database.select_database()
 database.create_tables()
 
-#database.insert_rows("testnom")
+database.insert_rows(products)
 
-database.disconnect_sql()
+#database.disconnect_sql()
 
 """
 Menu princpal de l'application
@@ -42,7 +42,7 @@ Sub-Menu of category
 
 sub_menu_replace_food_category = Menu("Retrouver mes aliments substitués")
 sub_menu_replace_food_category.add_item(MenuItem('Selectionner une catégorie', lambda : MenuItem.press_enter('1')))
-sub_menu_replace_food_category.add_item(MenuItem('Riz', lambda: MenuItem.press_enter('1')))
+sub_menu_replace_food_category.add_item(MenuItem('Riz',  MenuItem.press_enter('1')))
 sub_menu_replace_food_category.add_item(MenuItem('Pates', lambda: MenuItem.press_enter('2')))
 sub_menu_replace_food_category.add_item(MenuItem('Pizzas', lambda: MenuItem.press_enter('3')))
 sub_menu_replace_food_category.add_item(MenuItem('Patates douces', lambda: MenuItem.press_enter('4')))
