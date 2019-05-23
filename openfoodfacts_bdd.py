@@ -65,7 +65,7 @@ class OpenFoodFactsBdd:
                     print('cursor:', cur)
                     if cur.with_rows:
                         print('result:', cur.fetchall())
-                self.conn.commit()
+                self.conn.autocommit(True)
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")

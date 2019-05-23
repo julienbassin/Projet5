@@ -54,7 +54,7 @@ class OpenFoodFactsRequest:
                     self.products = {
                         'barcode' : products['code'],
                         'name': products['product_name_fr'],
-                        #'category' : products['categories_tags'],
+                        'category' : products['categories_tags'],
                         'grade': products['nutrition_grades'],
                         'store': products['stores'],
                         'url': products['url']
