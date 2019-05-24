@@ -37,8 +37,8 @@ Sub-Menu of category
 """
 #essyer de boucle sur les categories puis permettre l'envoie d'un nombre
 #effectuer une action qui va récupérer les informations en bdd
-#for idx, cat in enumerate(len(CAT_PRODUCTS)):
-    #sub_menu_replace_food.add_item(MenuItem(cat, lambda: MenuItem.press_enter(idx)))
+# for idx, cat in enumerate(len(CAT_PRODUCTS)):
+#     sub_menu_replace_food.add_item(MenuItem(cat, lambda: MenuItem.press_enter(idx)))
 
 sub_menu_replace_food_category = Menu("Retrouver mes aliments substitués")
 sub_menu_replace_food_category.add_item(MenuItem('Selectionner une catégorie', lambda : MenuItem.press_enter('1')))

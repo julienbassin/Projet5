@@ -51,6 +51,9 @@ class OpenFoodFactsBdd:
                 print("already exists.")
             else:
                 print(err.msg)
+        finally:
+            mycursor.close()
+            self.conn.close()
 
     def requests_sql(self, req):
         """
@@ -61,11 +64,11 @@ class OpenFoodFactsBdd:
             if req is not None:
                 mycursor = self.conn.cursor()
                 results =  mycursor.execute(req, multi=True)
+                self.conn.autocommit(True)
                 for cur in results:
                     print('cursor:', cur)
                     if cur.with_rows:
                         print('result:', cur.fetchall())
-                self.conn.autocommit(True)
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")
@@ -117,7 +120,7 @@ class OpenFoodFactsBdd:
         """
         sql_insert_products = "INSERT INTO product (barcode,name,category,grade,store,url) VALUES ({}, {}, {}, {}, {}, {})".format(11,'toto', 'test', 'testurl', 'c','meat')
         print(sql_insert_products)
-        self.requests_sql(sql_insert_products)
+        self.request_sql(sql_insert_products)
 
     def insert_favorites(self):
         pass
