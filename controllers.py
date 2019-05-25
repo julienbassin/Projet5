@@ -25,7 +25,7 @@ database.create_tables()
 
 database.insert_rows(products)
 
-#database.disconnect_sql()
+database.disconnect_sql()
 
 """
 Menu princpal de l'application

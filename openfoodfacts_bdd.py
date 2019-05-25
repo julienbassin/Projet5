@@ -1,7 +1,6 @@
 import mysql.connector
 import logging
 
-
 from mysql.connector import errorcode
 from logging.handlers import RotatingFileHandler
 
@@ -29,7 +28,9 @@ class OpenFoodFactsBdd:
 
         """
         try:
-            self.conn = mysql.connector.connect(host=config.DATABASE_CONFIG['host'],user=config.DATABASE_CONFIG['user'],passwd=config.DATABASE_CONFIG['password'])
+            self.conn = mysql.connector.connect(host=config.DATABASE_CONFIG['host'],
+                                                user=config.DATABASE_CONFIG['user'],
+                                                passwd=config.DATABASE_CONFIG['password'])
             print("connexion bdd successfully ! ")
         except mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
@@ -46,29 +47,6 @@ class OpenFoodFactsBdd:
                 mycursor = self.conn.cursor()
                 mycursor.execute(req)
                 self.conn.commit()
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-                print("already exists.")
-            else:
-                print(err.msg)
-        finally:
-            mycursor.close()
-            self.conn.close()
-
-    def requests_sql(self, req):
-        """
-            Method which is used for the request
-        """
-
-        try:
-            if req is not None:
-                mycursor = self.conn.cursor()
-                results =  mycursor.execute(req, multi=True)
-                self.conn.autocommit(True)
-                for cur in results:
-                    print('cursor:', cur)
-                    if cur.with_rows:
-                        print('result:', cur.fetchall())
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 print("already exists.")
@@ -118,32 +96,63 @@ class OpenFoodFactsBdd:
         """
             Method to insert all the products into the product's table
         """
-        sql_insert_products = "INSERT INTO product (barcode,name,category,grade,store,url) VALUES ({}, {}, {}, {}, {}, {})".format(11,'toto', 'test', 'testurl', 'c','meat')
-        print(sql_insert_products)
+        sql_insert_products = """INSERT INTO `product` (name,barcode,store,url,grade,category)
+                                VALUES ({},{},{},{},{},{})""".format(
+                                product['name'],
+                                product['barcode'],
+                                product['store'],
+                                product['url'],
+                                product['grade'],
+                                product['category'])
         self.request_sql(sql_insert_products)
 
     def insert_favorites(self):
+        """
+            Method which is insert favorites products into the table
+        """
         pass
 
-    def insert_stores(self):
-        pass
+    def insert_stores(self, product):
+        """
+            Method which is insert stores into the table
+        """
 
-    def insert_categories(self):
-        pass
+        sql_insert_store = "INSERT INTO `store` (store) VALUES ({})".format(product['store'])
+        self.request_sql(sql_insert_store)
+
+    def insert_categories(self, product):
+        """
+            Method which is insert categories into the table
+        """
+
+        sql_insert_category = "INSERT INTO `category` (category) VALUES ({})".format(product['category'])
+        self.request_sql(sql_insert_category)
 
     def insert_products_categories(self):
+        """
+            Method which is insert products_categories into the table
+        """
+
         pass
 
     def insert_products_stores(self):
+        """
+            Method which is insert favorites products into the table
+        """
+
         pass
 
 
     def insert_rows(self, products):
+        """
+            Method which call all the methods below
+        """
+
         for product in products:
             self.insert_products(product)
+            self.insert_stores(product)
+            self.insert_categories(product)
 			#self.insert_favorites(*product)
-			#self.insert_stores(*product)
-			#self.insert_categories(*product)
             #self.insert_products_categories(*product)
 			#self.insert_products_stores(*product)
 
