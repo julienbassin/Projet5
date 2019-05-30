@@ -1,11 +1,12 @@
-class OpenfoodfactsUsers:
+class DataBaseUsers:
     """
         Class which handle any users
     """
-    def __init__(self):
+    def __init__(self, connection):
         """
             constructor
         """
+        self.db_user = connection
 
         pass
 

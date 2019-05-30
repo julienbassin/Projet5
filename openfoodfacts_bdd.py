@@ -4,33 +4,22 @@ import logging
 from mysql.connector import errorcode
 from logging.handlers import RotatingFileHandler
 
+from openfoodfacts_users import DataBaseUsers
+
 import config
 
 
-class OpenFoodFactsBdd:
+class DataBaseCreator:
 
-    def __init__(self, file):
+    def __init__(self, connection , file):
         """
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
-        self.conn = None
+        self.conn = connection
         self.file = file
         self.logger = logging.getLogger()
-
-    def connect_sql(self):
-        """
-        Dans connexion_mysql, se connecter la bdd en tant qu'user ou root ?
-
-        """
-        try:
-            self.conn = mysql.connector.connect(host=config.DATABASE_CONFIG['host'],
-                                                user=config.DATABASE_CONFIG['user'],
-                                                passwd=config.DATABASE_CONFIG['password'])
-            print("connexion bdd successfully ! ")
-        except mysql.connector.Error as err:
-            self.logger.debug("Something went wrong: {}".format(err))
-        return self.conn
+        self.database = DataBaseUsers(self.conn)
 
     def request_sql(self, req):
         """
