@@ -34,7 +34,6 @@ class OpenFoodFactsBdd:
             print("connexion bdd successfully ! ")
         except mysql.connector.Error as err:
             logger.error("Something went wrong: {}".format(err))
-            exit(1)
         return self.conn
 
     def request_sql(self, req):
@@ -43,9 +42,8 @@ class OpenFoodFactsBdd:
         """
 
         try:
-            if req is not None:
-                mycursor = self.conn.cursor()
-                mycursor.execute(req)
+            with self.conn as cursor:
+                cursor.execute(req)
                 self.conn.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:

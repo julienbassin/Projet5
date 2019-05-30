@@ -2,44 +2,43 @@ import requests
 import json
 import logging
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.DEBUG)
-logger.addHandler(stream_handler)
+import config
 
-class OpenFoodFactsRequest:
+class CollectingDataOFF:
 
     """
         This class retrieve all data with Openfoodfacts API
     """
 
-    def __init__(self, params):
-        self.params = params
-        self.products = {}
-        self.categories = None
-        self.stores = None
+    def __init__(self):
+        self.params = config.PARAMS
+        self.logger = logging.getLogger()
 
-    def Connect(self, url):
+    def connect_and_harvest(self):
 
         """
             This method allows you to connect using the Openfoodfacts API
         """
         try:
-            search_result = requests.get(url, params=self.params, timeout=3)
-            search_result.raise_for_status()
-            result_json = search_result.json()
+            for category in config.CATEGORIES:
+                self.params['tag_0'] = category
+                response = requests.get(config.URL, params=self.params, timeout=3)
+                result = response.json()
+                products_section = result['products']
+                # for product in products_section:
+                #     product['main_category'] = category
+                #     all_products.update(product)
         except requests.exceptions.HTTPError as errh:
-            logging.log("Http Error:",errh)
+            self.logger.debug("Http Error")
         except requests.exceptions.ConnectionError as errc:
-            logging.log("Error Connecting:",errc)
+            self.logger.debug("Error Connecting")
         except requests.exceptions.Timeout as errt:
-            logging.log("Timeout Error:",errt)
+            self.logger.debug("Timeout Error")
         except requests.exceptions.RequestException as err:
-            logging.log("Oops: Something Else",err)
-        return result_json['products']
+            self.logger.debug("Oops: Something Else")
+        return products_section
 
-    def GetInfoProducts(self, object_json):
+    def get_info_products(self, products_final):
 
         """
         This method retrieve needed informations based on:
@@ -49,12 +48,13 @@ class OpenFoodFactsRequest:
             -  URL                      -> key : image_nutrition_url
         """
         list_products = []
-        for products in object_json:
+        for products in products_final:
             if products.get('nutrition_grades') and products.get('product_name_fr') and products.get('stores'):
                     self.products = {
-                        'barcode' : products['code'],
+                        'barcode' : products['id'],
                         'name': products['product_name_fr'],
-                        'category' : products['categories_tags'],
+                        'category' : products['categories'].upper().split(","),
+                        #'sub_category' : products['main_products'].upper(),
                         'grade': products['nutrition_grades'],
                         'store': products['stores'],
                         'url': products['url']
