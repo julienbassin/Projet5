@@ -6,11 +6,6 @@ from logging.handlers import RotatingFileHandler
 
 import config
 
-logger = logging.getLogger()
-logger.setLevel(logging.DEBUG)
-stream_handler = logging.StreamHandler()
-stream_handler.setLevel(logging.DEBUG)
-logger.addHandler(stream_handler)
 
 class OpenFoodFactsBdd:
 
@@ -21,6 +16,7 @@ class OpenFoodFactsBdd:
         """
         self.conn = None
         self.file = file
+        self.logger = logging.getLogger()
 
     def connect_sql(self):
         """
@@ -33,7 +29,7 @@ class OpenFoodFactsBdd:
                                                 passwd=config.DATABASE_CONFIG['password'])
             print("connexion bdd successfully ! ")
         except mysql.connector.Error as err:
-            logger.error("Something went wrong: {}".format(err))
+            self.logger.debug("Something went wrong: {}".format(err))
         return self.conn
 
     def request_sql(self, req):
@@ -47,9 +43,9 @@ class OpenFoodFactsBdd:
                 self.conn.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-                print("already exists.")
+                self.logger.debug("already exists.")
             else:
-                print(err.msg)
+                self.logger.debug(err.msg)
 
     def create_database(self, database="pur_beurre"):
         """
@@ -163,4 +159,4 @@ class OpenFoodFactsBdd:
                 self.conn.close()
                 print("Connexion closed !")
         except mysql.connector.Error as err:
-            print(err)
+            self.logger.debug(err)
