@@ -19,6 +19,7 @@ class CollectingDataOFF:
         """
             This method allows you to connect using the Openfoodfacts API
         """
+        all_products = {}
         try:
             for category in config.CATEGORIES:
                 self.params['tag_0'] = category
@@ -26,10 +27,7 @@ class CollectingDataOFF:
                 print(category)
                 result = response.json()
                 products_section = result['products']
-                # for product in products_section:
-                #     product['main_category'] = category
-                #     all_products.update(product)
-                print(products_section)
+                all_products[category] = products_section
         except requests.exceptions.HTTPError as errh:
             self.logger.debug("Http Error")
         except requests.exceptions.ConnectionError as errc:
@@ -38,7 +36,7 @@ class CollectingDataOFF:
             self.logger.debug("Timeout Error")
         except requests.exceptions.RequestException as err:
             self.logger.debug("Oops: Something Else")
-        return products_section
+        return all_products
 
     def get_info_products(self, products_final):
 
@@ -50,7 +48,7 @@ class CollectingDataOFF:
             -  URL                      -> key : image_nutrition_url
         """
         list_products = []
-        for product in products_final:
+        for categorie, product in products_final.items():
             if product.get('nutrition_grades') and product.get('product_name') and product.get('stores'):
                 product_final = {
                         'barcode' : product['id'],
