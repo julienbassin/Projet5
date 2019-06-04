@@ -48,7 +48,7 @@ class CollectingDataOFF:
             -  URL                      -> key : image_nutrition_url
         """
         list_products = []
-        for categorie, product in products_final.items():
+        for _, product in products_final.items():
             if product.get('nutrition_grades') and product.get('product_name') and product.get('stores'):
                 product_final = {
                         'barcode' : product['id'],
