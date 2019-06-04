@@ -11,7 +11,7 @@ import config
 
 class DataBaseCreator:
 
-    def __init__(self, connection , file):
+    def __init__(self, connection, file):
         """
             Dans init, initialiser les params pour les credentials à utiliser
 
@@ -27,14 +27,18 @@ class DataBaseCreator:
         """
 
         try:
-            with self.conn as cursor:
-                cursor.execute(req)
-                self.conn.commit()
+            cursor = self.conn.cursor()
+            cursor.execute(req)
+            # for result in cursor.execute(req, multi=True):
+            #     pass
+            self.conn.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
                 self.logger.debug("already exists.")
             else:
                 self.logger.debug(err.msg)
+        finally:
+            cursor.close()
 
     def create_database(self, database="pur_beurre"):
         """
@@ -79,14 +83,13 @@ class DataBaseCreator:
         """
             Method to insert all the products into the product's table
         """
-        sql_insert_products = """INSERT INTO `product` (name,barcode,store,url,grade,category)
-                                VALUES ({},{},{},{},{},{})""".format(
+        sql_insert_products = """INSERT INTO `product` (name,barcode,url,grade)
+                                VALUES ('{}','{}','{}','{}')""".format(
                                 product['name'],
                                 product['barcode'],
-                                product['store'],
                                 product['url'],
-                                product['grade'],
-                                product['category'])
+                                product['grade'])
+        print(sql_insert_products)
         self.request_sql(sql_insert_products)
 
     def insert_favorites(self):
@@ -100,15 +103,14 @@ class DataBaseCreator:
             Method which is insert stores into the table
         """
 
-        sql_insert_store = "INSERT INTO `store` (store) VALUES ({})".format(product['store'])
+        sql_insert_store = "INSERT INTO `store` (store) VALUES (:store) ON DUPLICATE KEY UPDATE store=:store;".format(store=product['store'])
         self.request_sql(sql_insert_store)
 
     def insert_categories(self, product):
         """
             Method which is insert categories into the table
         """
-
-        sql_insert_category = "INSERT INTO `category` (category) VALUES ({})".format(product['category'])
+        sql_insert_category = "INSERT INTO `category` (category) VALUES (:category)".format(category=category)
         self.request_sql(sql_insert_category)
 
     def insert_products_categories(self):
@@ -134,7 +136,7 @@ class DataBaseCreator:
         for product in products:
             self.insert_products(product)
             self.insert_stores(product)
-            self.insert_categories(product)
+            #self.insert_categories(product)
 			#self.insert_favorites(*product)
             #self.insert_products_categories(*product)
 			#self.insert_products_stores(*product)

@@ -4,15 +4,15 @@ from logging.config import dictConfig
 URL = "https://fr.openfoodfacts.org/cgi/search.pl"
 
 CATEGORIES = ('riz',
-                'pates',
-                'pizzas',
-                'patates douces',
-                'haricots verts',
-                'haricots rouges',
-                'lentilles',
-                'quinoa',
-                'boeuf',
-                'poulet')
+            'pates',
+            'pizzas',
+            'patates douces',
+            'haricots verts',
+            'haricots rouges',
+            'lentilles',
+            'quinoa',
+            'boeuf',
+            'poulet')
 
 PARAMS = {
                 "search_simple" : '1',

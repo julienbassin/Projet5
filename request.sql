@@ -3,10 +3,8 @@ CREATE TABLE IF NOT EXISTS `Product` (
   `product_id` INT NOT NULL AUTO_INCREMENT,
   `name` VARCHAR(255) NOT NULL,
   `barcode` BIGINT NOT NULL,
-  `store` VARCHAR(255) NOT NULL,
   `url` VARCHAR(255) NOT NULL,
   `grade` VARCHAR(1) NOT NULL,
-  `category` VARCHAR(255) NOT NULL,
   PRIMARY KEY (`product_id`))
 ENGINE = InnoDB;
 

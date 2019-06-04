@@ -11,7 +11,7 @@ import config
 
 request = CollectingDataOFF()
 final_json = request.connect_and_harvest()
-request.get_info_products(final_json)
+products = request.get_info_products(final_json)
 
 connection = mysql.connector.connect(host=config.DATABASE_CONFIG['host'],
                                         user=config.DATABASE_CONFIG['user'],
@@ -23,7 +23,7 @@ database.create_database()
 database.select_database()
 database.create_tables()
 
-# database.insert_rows(products)
+database.insert_rows(products)
 
 # database.disconnect_sql()
 
