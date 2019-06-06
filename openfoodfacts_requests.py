@@ -24,10 +24,7 @@ class CollectingDataOFF:
             for category in config.CATEGORIES:
                 self.params['tag_0'] = category
                 response = requests.get(config.URL, params=self.params, timeout=3)
-                print(category)
-                result = response.json()
-                products_section = result['products']
-                all_products[category] = products_section
+                all_products[category] = response.json()['products']
         except requests.exceptions.HTTPError as errh:
             self.logger.debug("Http Error")
         except requests.exceptions.ConnectionError as errc:
@@ -48,15 +45,16 @@ class CollectingDataOFF:
             -  URL                      -> key : image_nutrition_url
         """
         list_products = []
-        for _, product in products_final.items():
-            if product.get('nutrition_grades') and product.get('product_name') and product.get('stores'):
-                product_final = {
-                        'barcode' : product['id'],
-                        'name': product['product_name'],
-                        'category' : product['categories'].upper().split(","),
-                        'grade': product['nutrition_grades'],
-                        'store': product['stores'],
-                        'url': product['url']
-                }
-                list_products.append(product_final)
+        for products in products_final.values():
+            for product in products:
+                if product.get('nutrition_grades') and product.get('product_name') and product.get('stores') and product.get('id'):
+                    product_final = {
+                            'barcode' : product['id'],
+                            'name': product['product_name'],
+                            'category' : product['categories'].upper().split(","),
+                            'grade': product['nutrition_grades'],
+                            'store': product['stores'],
+                            'url': product['url']
+                    }
+                    list_products.append(product_final)
         return list_products

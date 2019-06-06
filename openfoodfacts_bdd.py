@@ -5,7 +5,6 @@ from mysql.connector import errorcode
 from logging.handlers import RotatingFileHandler
 
 from openfoodfacts_users import DataBaseUsers
-
 import config
 
 
@@ -110,8 +109,10 @@ class DataBaseCreator:
         """
             Method which is insert categories into the table
         """
-        sql_insert_category = "INSERT INTO `category` (category) VALUES (:category)".format(category=category)
-        self.request_sql(sql_insert_category)
+        for category in product['category']:
+            print(category)
+            # sql_insert_category = "INSERT INTO `category` (name) VALUES ({})".format(category)
+            # self.request_sql(sql_insert_category)
 
     def insert_products_categories(self):
         """
@@ -135,8 +136,8 @@ class DataBaseCreator:
 
         for product in products:
             self.insert_products(product)
-            self.insert_stores(product)
-            #self.insert_categories(product)
+            #self.insert_stores(product)
+            self.insert_categories(product)
 			#self.insert_favorites(*product)
             #self.insert_products_categories(*product)
 			#self.insert_products_stores(*product)
