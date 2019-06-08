@@ -101,8 +101,7 @@ class DataBaseCreator:
         """
             Method which is insert stores into the table
         """
-
-        sql_insert_store = "INSERT INTO `store` (store) VALUES (:store) ON DUPLICATE KEY UPDATE store=:store;".format(store=product['store'])
+        sql_insert_store = "INSERT INTO `store` (name) VALUES ('{}')".format(product['store'])
         self.request_sql(sql_insert_store)
 
     def insert_categories(self, product):
@@ -110,23 +109,8 @@ class DataBaseCreator:
             Method which is insert categories into the table
         """
         for category in product['category']:
-            print(category)
-            # sql_insert_category = "INSERT INTO `category` (name) VALUES ({})".format(category)
-            # self.request_sql(sql_insert_category)
-
-    def insert_products_categories(self):
-        """
-            Method which is insert products_categories into the table
-        """
-
-        pass
-
-    def insert_products_stores(self):
-        """
-            Method which is insert favorites products into the table
-        """
-
-        pass
+             sql_insert_category = "INSERT INTO `category` (name) VALUES ('{}')".format(category)
+             self.request_sql(sql_insert_category)
 
 
     def insert_rows(self, products):
@@ -136,11 +120,9 @@ class DataBaseCreator:
 
         for product in products:
             self.insert_products(product)
-            #self.insert_stores(product)
+            self.insert_stores(product)
             self.insert_categories(product)
-			#self.insert_favorites(*product)
-            #self.insert_products_categories(*product)
-			#self.insert_products_stores(*product)
+		return True
 
     def disconnect_sql(self):
         """
