@@ -28,8 +28,6 @@ class DataBaseCreator:
         try:
             cursor = self.conn.cursor()
             cursor.execute(req)
-            # for result in cursor.execute(req, multi=True):
-            #     pass
             self.conn.commit()
         except mysql.connector.Error as err:
             if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
@@ -101,6 +99,7 @@ class DataBaseCreator:
         """
             Method which is insert stores into the table
         """
+
         sql_insert_store = "INSERT INTO `store` (name) VALUES ('{}')".format(product['store'])
         self.request_sql(sql_insert_store)
 
@@ -122,7 +121,7 @@ class DataBaseCreator:
             self.insert_products(product)
             self.insert_stores(product)
             self.insert_categories(product)
-		return True
+        return True
 
     def disconnect_sql(self):
         """

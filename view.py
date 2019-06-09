@@ -1,55 +1,67 @@
 import logging
 
+class View:
 
-class MenuItem():
+    def __init__(self):
+        pass
 
-    def __init__(self, name, action):
-        self.name = name
-        self.action = action
+    def principal_menu(self):
+        """ This function allows to direct the user """
+        print('\n', conf.DECO, '\n',
+              "***  Bonjour et bienvenue au ° Substitute Factory ° ***",
+              '\n', conf.DECO, '\n')
+        print("Tapez:", '\n',
+              " |-'1': Quel aliment souhaitez-vous remplacer ?" '\n',
+              " |-'2': Retrouver mes aliments substitués" '\n',
+              " |-'Q': Pour quitter", '\n')
+        user = input()
+        key_list = ['1', '2', 'Q']
+        if user not in key_list:
+            print('\n', conf.SPACE_ADJUST,  conf.INDEX_ERROR, '\n')
+            self.menu()
+        else:
+            if user == '1':
+                #categories
+                #1 - riz
+                    #riz basmati - codebar - description - note (c)
+                    #application -> verification si le produit pris possede la meilleure note?
+                        #si produit a une bonne note
+                            #tu enregistres dans tes favoris
+                        #else
+                            #voici le produit avec la meilleure note codebar - description - note (c)
+                            #application -> etes vous sur de conserver le produit selectionné ou le substitué ?(y/n)
+                                #if oui
+                                    #tu enregistres dans tes favoris
+                                #else
+                                    #je change le produit subsitué
+                                    #je l'enregistre dans les favoris
+                #2 - pates
+                self.choice_category()
+                self.product_store()
+            elif user == '2':
+                #table subsituté
+                self.product_store()
+            elif user == 'Q':
+                self.exit()
+    def menu(self):
+        pass
 
-    def __str__(self):
-        return self.name
+    def choice_category(self):
+        pass
 
-    def cls(self):
-        print(10*'\n')
+    def product_store(self):
+        pass
 
-    def read_number(self, text = ''):
-        INP='>>'
-        text += '\n' + INP if text else INP
-        str = ''
-        try:
-            str = input(text)
-            return int(str)
-        except ValueError:
-            self.press_enter("Error value: '{}'! Enter please the number".format(str))
-            return -1
+    def exit(self):
+        print('\n', conf.DECO, '\n', conf.SPACE_ADJUST,
+              "*** ° Au revoir et à bientot ° ***",
+              '\n', conf.DECO, '\n')
+        quit()
 
-    def press_enter(self, str = ''):
-        str += '\nPress Enter'
-        input(str)
+    def choice_product(self):
+        pass
 
+    def choice_category_action(self):
+        pass
 
-class Menu(MenuItem):
-
-    def __init__(self, name):
-        MenuItem.__init__(self, name, self.show_menu)
-        self.items={}
-
-    def add_item(self, item):
-        self.items[len(self.items) + 1] = item
-
-    def show_menu(self):
-        choice = -1
-        while choice:
-            self.cls()
-            print(self)
-            choice = self.read_number()
-            if choice in self.items:
-                self.items[choice].action()
-
-    def __str__(self):
-        res_str = self.name + ':\n0: Exit'
-        for i in self.items.keys():
-            res_str += str.format('\n{}: {}', i, self.items[i].name)
-        return res_str
 
