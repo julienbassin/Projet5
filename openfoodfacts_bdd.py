@@ -130,6 +130,6 @@ class DataBaseCreator:
         try:
             if self.conn.is_connected():
                 self.conn.close()
-                print("Connexion closed !")
+                print("Connection closed !")
         except mysql.connector.Error as err:
             self.logger.debug(err)
