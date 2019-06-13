@@ -1,11 +1,12 @@
 import logging
+import config
 
 class View:
 
     def __init__(self):
         pass
 
-    def principal_menu(self):
+    def menu(self):
         """ This function allows to direct the user """
         print('\n', conf.DECO, '\n',
               "***  Bonjour et bienvenue au ° Substitute Factory ° ***",
@@ -21,7 +22,44 @@ class View:
             self.menu()
         else:
             if user == '1':
-                #categories
+                self.choice_category()
+                self.product_store()
+            elif user == '2':
+                #table subsitué
+                self.product_store()
+            elif user == 'Q':
+                self.exit()
+
+    def choice_category(self):
+        category = self.value_error(self.choice_category_action)
+        print('\n', conf.SPACE_ADJUST,
+              "|*** vous avez choisis ***| : ",
+              category.capitalize(), '\n')
+        self.choice_product(category)
+
+    def choice_category_action(self):
+        for i, categorie in enumerate(config.CATEGORIES):
+            print("*", i+1, "-", categorie)
+        user_input = input('\n'
+                     " |*** Pour choisir une catégorie, "
+                     "tapez le chiffre associé et appuyer sur ENTREE ***| "
+                     '\n')
+        return config.CATEGORIES[user_input-1]
+
+    def product_store(self, category):
+        pass
+
+    def exit(self):
+        print('\n', conf.DECO, '\n', conf.SPACE_ADJUST,
+              "*** ° Au revoir et à bientot ° ***",
+              '\n', conf.DECO, '\n')
+        quit()
+
+    def choice_product(self,category):
+        pass
+
+
+#categories
                 #1 - riz
                     #riz basmati - codebar - description - note (c)
                     #application -> verification si le produit pris possede la meilleure note?
@@ -36,32 +74,3 @@ class View:
                                     #je change le produit subsitué
                                     #je l'enregistre dans les favoris
                 #2 - pates
-                self.choice_category()
-                self.product_store()
-            elif user == '2':
-                #table subsituté
-                self.product_store()
-            elif user == 'Q':
-                self.exit()
-    def menu(self):
-        pass
-
-    def choice_category(self, category):
-        pass
-
-    def product_store(self, store):
-        pass
-
-    def exit(self):
-        print('\n', conf.DECO, '\n', conf.SPACE_ADJUST,
-              "*** ° Au revoir et à bientot ° ***",
-              '\n', conf.DECO, '\n')
-        quit()
-
-    def choice_product(self):
-        pass
-
-    def choice_category_action(self):
-        pass
-
-
