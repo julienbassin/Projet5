@@ -10,13 +10,15 @@ import config
 
 class DataBaseCreator:
 
-    def __init__(self, connection, file):
+    def __init__(self):
         """
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
-        self.conn = connection
-        self.file = file
+        self.conn = mysql.connector.connect(host=config.DATABASE_CONFIG['host'],
+                                        user=config.DATABASE_CONFIG['user'],
+                                        passwd=config.DATABASE_CONFIG['password'])
+        self.file = "request.sql"
         self.logger = logging.getLogger()
         self.database = DataBaseUsers(self.conn)
 
@@ -89,12 +91,6 @@ class DataBaseCreator:
         print(sql_insert_products)
         self.request_sql(sql_insert_products)
 
-    def insert_favorites(self):
-        """
-            Method which is insert favorites products into the table
-        """
-        pass
-
     def insert_stores(self, product):
         """
             Method which is insert stores into the table
@@ -109,7 +105,10 @@ class DataBaseCreator:
         """
         for category in product['category']:
              sql_insert_category = "INSERT INTO `category` (name) VALUES ('{}')".format(category)
+             sql_insert_favorites = "INSERT INTO `favorites` (product_id, category_id) VALUES ('{}','{}')".format(product['barcode'], Select * FROM Category WHERE category_id )
              self.request_sql(sql_insert_category)
+             self.request_sql(sql_insert_favorites)
+
 
 
     def insert_rows(self, products):

@@ -46,10 +46,10 @@ class View:
     def menu(self):
         pass
 
-    def choice_category(self):
+    def choice_category(self, category):
         pass
 
-    def product_store(self):
+    def product_store(self, store):
         pass
 
     def exit(self):
