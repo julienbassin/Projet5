@@ -12,14 +12,14 @@ final_json = request.connect_and_harvest()
 products = request.get_info_products(final_json)
 
 
-# database = DataBaseCreator()
-# database.create_database()
-# database.select_database()
-# database.create_tables()
+database = DataBaseCreator()
+database.create_database()
+database.select_database()
+database.create_tables()
 
-# database.insert_rows(products)
+database.insert_rows(products)
 
-# database.disconnect_sql()
+database.disconnect_sql()
 
 
 

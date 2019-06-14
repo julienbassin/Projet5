@@ -95,20 +95,24 @@ class DataBaseCreator:
         """
             Method which is insert stores into the table
         """
+        #traitement des stores pour avoir que les stores : carrefour, franprix, monoprix...
+        all_stores = []
+        stores_final = []
+        for store in product['store'].split(","):
+            print(store)
+            stores_final.append(set(all_stores.append(store)))
 
-        sql_insert_store = "INSERT INTO `store` (name) VALUES ('{}')".format(product['store'])
-        self.request_sql(sql_insert_store)
+        for store_final in stores_final:
+            sql_insert_store = "INSERT INTO `store` (name) VALUES ('{}')".format(store_final)
+            self.request_sql(sql_insert_store)
 
     def insert_categories(self, product):
         """
             Method which is insert categories into the table
         """
-        for category in product['category']:
-             sql_insert_category = "INSERT INTO `category` (name) VALUES ('{}')".format(category)
-             sql_insert_favorites = "INSERT INTO `favorite` (substitute_product_id, substituted_product_id) VALUES ('{}','{}')".format(product['barcode'], product['barcode'])
-             self.request_sql(sql_insert_category)
-             self.request_sql(sql_insert_favorites)
 
+        sql_insert_category = "INSERT INTO `category` (name) VALUES ('{}') ON DUPLICATE KEY UPDATE name='{}'".format(product['category'],product['category'])
+        self.request_sql(sql_insert_category)
 
 
     def insert_rows(self, products):
