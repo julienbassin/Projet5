@@ -24,8 +24,11 @@ class CollectingDataOFF:
             for category in config.CATEGORIES:
                 self.params['tag_0'] = category
                 response = requests.get(config.URL, params=self.params, timeout=3)
-                all_products[category] = response.json()['products']
-                print(all_products)
+                #all_products[category] = response.json()['products']
+                products_section = response.json()['products']
+                for product in products_section:
+                    product['main_category'] = category
+                all_products[category] = products_section
         except requests.exceptions.HTTPError as errh:
             self.logger.debug("Http Error")
         except requests.exceptions.ConnectionError as errc:
@@ -34,6 +37,7 @@ class CollectingDataOFF:
             self.logger.debug("Timeout Error")
         except requests.exceptions.RequestException as err:
             self.logger.debug("Oops: Something Else")
+        #print(all_products)
         return all_products
 
     def get_info_products(self, products_final):
@@ -52,11 +56,11 @@ class CollectingDataOFF:
                     product_final = {
                             'barcode' : product['id'],
                             'name': product['product_name'],
-                            'category' : product['categories'].upper().split(","),
+                            'category': product['main_category'],
+                            'sub_category' : product['categories'].upper().split(","),
                             'grade': product['nutrition_grades'],
                             'store': product['stores'],
                             'url': product['url']
                     }
-                    #print(product_final)
                     list_products.append(product_final)
         return list_products
