@@ -56,7 +56,8 @@ class View:
         quit()
 
     def choice_product(self,category):
-        pass
+        product = self.database.get_all_products(category)
+
 
 
 #categories

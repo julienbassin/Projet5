@@ -25,6 +25,7 @@ class CollectingDataOFF:
                 self.params['tag_0'] = category
                 response = requests.get(config.URL, params=self.params, timeout=3)
                 all_products[category] = response.json()['products']
+                print(all_products)
         except requests.exceptions.HTTPError as errh:
             self.logger.debug("Http Error")
         except requests.exceptions.ConnectionError as errc:
@@ -56,5 +57,6 @@ class CollectingDataOFF:
                             'store': product['stores'],
                             'url': product['url']
                     }
+                    #print(product_final)
                     list_products.append(product_final)
         return list_products
