@@ -95,7 +95,6 @@ class DataBaseCreator:
         """
             Method which is insert stores into the table
         """
-        #traitement des stores pour avoir que les stores : carrefour, franprix, monoprix...
         all_stores = []
         for store in product['store'].split(","):
             print(store.strip())
@@ -103,7 +102,9 @@ class DataBaseCreator:
 
         for store_final in all_stores:
             sql_insert_store = "INSERT INTO `stores` (store) VALUES ('{}')".format(store_final)
+            sql_insert_products_stores = "INSERT INTO `products_stores` (product_id, store_id) VALUES ('{}','{}')".format(product['barcode'], ("SELECT id from stores"))
             self.request_sql(sql_insert_store)
+            self.request_sql(sql_insert_products_stores)
 
     def insert_categories(self, product):
         """
@@ -111,7 +112,9 @@ class DataBaseCreator:
         """
 
         sql_insert_category = "INSERT INTO `categories` (category) VALUES ('{}')".format(product['category'])
+        sql_insert_products_categories = "INSERT INTO `products_categories` (product_id, category_id) VALUES ('{}','{}')".format(product['barcode'], ("SELECT id from categories"))
         self.request_sql(sql_insert_category)
+        self.request_sql(sql_insert_products_categories)
 
 
     def insert_rows(self, products):

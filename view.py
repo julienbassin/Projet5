@@ -8,9 +8,9 @@ class View:
 
     def menu(self):
         """ This function allows to direct the user """
-        print('\n', conf.DECO, '\n',
-              "***  Bonjour et bienvenue au ° Substitute Factory ° ***",
-              '\n', conf.DECO, '\n')
+        print('\n', config.DECO, '\n',
+              "***  Welcome to ° Substitute Factory ° ***",
+              '\n', config.DECO, '\n')
         print("Tapez:", '\n',
               " |-'1': Quel aliment souhaitez-vous remplacer ?" '\n',
               " |-'2': Retrouver mes aliments substitués" '\n',
@@ -18,7 +18,7 @@ class View:
         user = input()
         key_list = ['1', '2', 'Q']
         if user not in key_list:
-            print('\n', conf.SPACE_ADJUST,  conf.INDEX_ERROR, '\n')
+            print('\n', config.SPACE_ADJUST,  config.INDEX_ERROR, '\n')
             self.menu()
         else:
             if user == '1':
@@ -32,7 +32,7 @@ class View:
 
     def choice_category(self):
         category = self.value_error(self.choice_category_action)
-        print('\n', conf.SPACE_ADJUST,
+        print('\n', config.SPACE_ADJUST,
               "|*** vous avez choisis ***| : ",
               category.capitalize(), '\n')
         self.choice_product(category)
@@ -50,9 +50,9 @@ class View:
         pass
 
     def exit(self):
-        print('\n', conf.DECO, '\n', conf.SPACE_ADJUST,
+        print('\n', config.DECO, '\n', config.SPACE_ADJUST,
               "*** ° Au revoir et à bientot ° ***",
-              '\n', conf.DECO, '\n')
+              '\n', config.DECO, '\n')
         quit()
 
     def choice_product(self,category):

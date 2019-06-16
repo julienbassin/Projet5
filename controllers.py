@@ -7,6 +7,20 @@ from openfoodfacts_requests import CollectingDataOFF
 import config
 
 
+class Controller:
+
+    """
+        This class is dedicated to the controller
+
+    """
+    def __init__(self):
+        pass
+
+    def run(self):
+        pass
+
+
+
 request = CollectingDataOFF()
 final_json = request.connect_and_harvest()
 products = request.get_info_products(final_json)

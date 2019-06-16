@@ -26,3 +26,4 @@ CREATE TABLE IF NOT EXISTS Products_stores (
                           id MEDIUMINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
                           product_id BIGINT REFERENCES Products(barcode),
                           store_id MEDIUMINT REFERENCES Stores(id));
+

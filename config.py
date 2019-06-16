@@ -49,3 +49,8 @@ logging_config = dict(
 )
 
 dictConfig(logging_config)
+
+DECO = "***-------------------------------------------------***"
+SPACE_ADJUST = "          "
+INDEX_ERROR = "IndexError - |*** /!\ Tapez le chiffre associé à votre choix dans la liste /!\ ***|"
+VALUE_ERROR = "ValueError - |*** /!\ Tapez la valeur associé à votre choix dans la liste /!\ ***|"
