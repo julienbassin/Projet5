@@ -36,8 +36,8 @@ class DataBaseCreator:
                 self.logger.debug("already exists.")
             else:
                 self.logger.debug(err.msg)
-        finally:
-            cursor.close()
+        # finally:
+        #     cursor.close()
 
     def create_database(self, database="pur_beurre"):
         """
@@ -66,7 +66,7 @@ class DataBaseCreator:
         """
             Method to drop all tables
         """
-        sql_table_drop_req = "drop table if exists Product,Favorite,Category, Store, Product_Category, Product_store;"
+        sql_table_drop_req = "drop table if exists products,favorites,categories,stores,products_categories,products_stores;"
         self.request_sql(sql_table_drop_req)
 
     def create_tables(self):
@@ -82,7 +82,7 @@ class DataBaseCreator:
         """
             Method to insert all the products into the product's table
         """
-        sql_insert_products = """INSERT INTO `product` (name,barcode,url,grade)
+        sql_insert_products = """INSERT INTO `products` (name_product,barcode,url,grade)
                                 VALUES ('{}','{}','{}','{}')""".format(
                                 product['name'],
                                 product['barcode'],
@@ -97,13 +97,12 @@ class DataBaseCreator:
         """
         #traitement des stores pour avoir que les stores : carrefour, franprix, monoprix...
         all_stores = []
-        stores_final = []
         for store in product['store'].split(","):
-            print(store)
-            stores_final.append(set(all_stores.append(store)))
+            print(store.strip())
+            all_stores.append(store)
 
-        for store_final in stores_final:
-            sql_insert_store = "INSERT INTO `store` (name) VALUES ('{}')".format(store_final)
+        for store_final in all_stores:
+            sql_insert_store = "INSERT INTO `stores` (store) VALUES ('{}')".format(store_final)
             self.request_sql(sql_insert_store)
 
     def insert_categories(self, product):
@@ -111,7 +110,7 @@ class DataBaseCreator:
             Method which is insert categories into the table
         """
 
-        sql_insert_category = "INSERT INTO `category` (name) VALUES ('{}') ON DUPLICATE KEY UPDATE name='{}'".format(product['category'],product['category'])
+        sql_insert_category = "INSERT INTO `categories` (category) VALUES ('{}')".format(product['category'])
         self.request_sql(sql_insert_category)
 
 
