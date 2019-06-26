@@ -1,10 +1,14 @@
 import logging
 import config
 
+from openfoodfacts_bdd import DataBaseCreator
+from openfoodfacts_users import DataBaseUsers
+
 class View:
 
     def __init__(self):
-        pass
+        self.database = DataBaseCreator()
+        self.db_user = DataBaseUsers(self.database.db)
 
     def menu(self):
         """ This function allows to direct the user """
@@ -31,37 +35,45 @@ class View:
                 self.exit()
 
     def choice_category(self):
-        category = self.value_error(self.choice_category_action)
-        print('\n', config.SPACE_ADJUST,
-              "|*** vous avez choisis ***| : ",
-              category.capitalize(), '\n')
+        category = self.choice_category_action()
+        print('\n',"|*** vous avez choisis la catégorie ***| : ",category, '\n')
         self.choice_product(category)
 
     def choice_category_action(self):
         for i, categorie in enumerate(config.CATEGORIES):
-            print("*", i+1, "-", categorie)
+            print(i+1, "-", categorie)
         user_input = input('\n'
                      " |*** Pour choisir une catégorie, "
                      "tapez le chiffre associé et appuyer sur ENTREE ***| "
-                     '\n')
-        return config.CATEGORIES[user_input-1]
+                     '\n\n')
+        return config.CATEGORIES[int(user_input)-1]
 
-    def product_store(self, category):
-        pass
+    def product_store(self):
+        print("product displayed")
 
     def exit(self):
+        """
+            Method which permit to exit the main program
+        """
         print('\n', config.DECO, '\n', config.SPACE_ADJUST,
               "*** ° Au revoir et à bientot ° ***",
               '\n', config.DECO, '\n')
         quit()
 
-    def choice_product(self,category):
-        product = self.database.get_all_products(category)
+    def choice_product(self, category):
+        self.choice_product_action(category)
 
+
+
+    def choice_product_action(self, category):
+        products = self.db_user.get_all_products_per_category(category)
+        for i, product in enumerate(products):
+            print("{} - {}".format(i+1, product['name_product']))
 
 
 #categories
                 #1 - riz
+                    #table de correspondance a faire
                     #riz basmati - codebar - description - note (c)
                     #application -> verification si le produit pris possede la meilleure note?
                         #si produit a une bonne note

@@ -1,5 +1,6 @@
 import mysql.connector
 import logging
+import records
 
 from mysql.connector import errorcode
 from logging.handlers import RotatingFileHandler
@@ -15,38 +16,39 @@ class DataBaseUsers:
         self.conn_user = connection
         self.logger = logging.getLogger()
 
-    def request_sql(self, req):
+    def get_all_products_per_category(self, category):
         """
-            Method which is used for the request
+            method which get all products of different categories
         """
+        cat = self.conn_user.query(""" SELECT product.barcode, product.name_product, product.grade, product.web_site
+                                       FROM products as product
+                                       JOIN products_categories as pc
+                                            ON pc.product_id = product.barcode
+                                       JOIN categories as cat
+                                            ON pc.category_id = cat.id
+                                       WHERE cat.category= :user_cat;
 
-        try:
-            with self.conn_user as cursor:
-                cursor.execute(req)
-                self.conn_user.commit()
-        except mysql.connector.Error as err:
-            if err.errno == errorcode.ER_TABLE_EXISTS_ERROR:
-                self.logger.debug("already exists.")
-            else:
-                self.logger.debug(err.msg)
+                             """, user_cat=category, fetchall=True).as_dict()
+        return cat
 
-    def get_all_products(self):
-        """
-            method which get all products from user
-        """
-
-        pass
-
-    def get_favorite_product(self):
+    def get_favorite_table(self):
         """
             Method which get all favorite product from user
         """
 
-        pass
+        self.conn_user.query()
 
     def substitute_product(self):
         """
             Method which substitute any product from user
         """
 
-        pass
+        self.conn_user.query()
+
+    def check_product(self, product_user):
+
+        self.conn_user.query()
+
+    def add_product_into_favorties(self, product, substitute):
+
+        self.conn_user.query()
