@@ -155,7 +155,6 @@ class DataBaseCreator:
             self.insert_products(product)
             self.insert_stores(product)
             self.insert_categories(product)
-            #self.insert_products_categories(product)
         return True
 
 
