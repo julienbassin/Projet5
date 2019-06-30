@@ -49,13 +49,14 @@ class DataBaseUsers:
             Method which is check product with another product
         """
         product_grade = self.conn_user.query("""
-                                                SELECT product.name_product, product.grade
+                                                SELECT product.name_product, product.grade, product.web_site, cat.category
                                                 FROM products as product
                                                 JOIN products_categories as pc
                                                     ON pc.product_id = product.barcode
                                                 JOIN categories as cat
                                                     ON pc.category_id = cat.id
                                                     WHERE cat.category= :user_cat AND product.grade < :grade
+                                                    ORDER BY product.barcode
 
                                              """, grade=product['grade'] ,user_cat=category, fetchall=True).as_dict()
         return product_grade
