@@ -36,7 +36,7 @@ class View:
 
     def choice_category(self):
         category = self.choice_category_action()
-        print('\n',"|*** vous avez choisis la catégorie ***| : ",category, '\n')
+        print('\n',"|*** vous avez choisis la catégorie ***| : ",category.capitalize(), '\n')
         self.choice_product(category)
 
     def choice_category_action(self):
@@ -49,7 +49,12 @@ class View:
         return config.CATEGORIES[int(user_input)-1]
 
     def product_store(self):
-        print("product displayed")
+        #print("\n Select your product \n")
+        #user_product_input = eval(input())
+        #print("vous avez choisi: ", user_product_input)
+
+        #montrer la carte d'identité du produit
+        pass
 
     def exit(self):
         """
@@ -61,14 +66,22 @@ class View:
         quit()
 
     def choice_product(self, category):
-        self.choice_product_action(category)
-
-
+        """
+            Method which shows all available products
+        """
+        product = self.choice_product_action(category)
+        print("Vous avez choisi {}".format(product['name_product'].capitalize()))
+        self.db_user.choose_product_from_category(category, product)
 
     def choice_product_action(self, category):
+        """
+            Method which puts all action for products
+        """
         products = self.db_user.get_all_products_per_category(category)
         for i, product in enumerate(products):
             print("{} - {}".format(i+1, product['name_product']))
+        choice_product = input("\n Veuillez sélectionner le produit de votre choix\n")
+        return products[int(choice_product)-1]
 
 
 #categories
