@@ -44,25 +44,25 @@ class DataBaseUsers:
 
         return all_favorites_products
 
-    def choose_product_from_category(self, product, category):
+    def choose_product_from_category(self, category, product):
         """
             Method which is check product with another product
         """
         product_grade = self.conn_user.query("""
-                                                SELECT product.name_product, product.grade, product.web_site, cat.category
+                                                SELECT product.name_product, MIN(product.grade), product.web_site, cat.category
                                                 FROM products as product
                                                 JOIN products_categories as pc
                                                     ON pc.product_id = product.barcode
                                                 JOIN categories as cat
                                                     ON pc.category_id = cat.id
-                                                    WHERE cat.category= :user_cat AND product.grade < :grade
-                                                    ORDER BY product.barcode
-
-                                             """, grade=product['grade'] ,user_cat=category, fetchall=True).as_dict()
+                                                WHERE product.grade < :grade AND cat.category= :user_cat
+                                                ORDER BY product.grade
+                                             """, grade='c' ,user_cat=category, fetchall=True).as_dict()
         return product_grade
 
 
-    def add_product_into_favorties(self, product, substitute):
+
+    def add_product_into_favorites(self, product, substitute):
         """
             method which is add a product into favorites table
 

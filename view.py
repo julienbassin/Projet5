@@ -71,7 +71,8 @@ class View:
         """
         product = self.choice_product_action(category)
         print("Vous avez choisi {}".format(product['name_product'].capitalize()))
-        self.db_user.choose_product_from_category(category, product)
+        self.choice_substitute(category, product)
+
 
     def choice_product_action(self, category):
         """
@@ -84,19 +85,45 @@ class View:
         return products[int(choice_product)-1]
 
 
-#categories
-                #1 - riz
-                    #table de correspondance a faire
-                    #riz basmati - codebar - description - note (c)
-                    #application -> verification si le produit pris possede la meilleure note?
-                        #si produit a une bonne note
-                            #tu enregistres dans tes favoris
-                        #else
-                            #voici le produit avec la meilleure note codebar - description - note (c)
-                            #application -> etes vous sur de conserver le produit selectionné ou le substitué ?(y/n)
-                                #if oui
-                                    #tu enregistres dans tes favoris
-                                #else
-                                    #je change le produit subsitué
-                                    #je l'enregistre dans les favoris
-                #2 - pates
+    def choice_substitute(self, category, product):
+        self.choice_substitute_action(category, product)
+
+
+    def choice_substitute_action(self, category,product):
+        substitutes = self.db_user.choose_product_from_category(category, product)
+        for i, select_substitute in enumerate(substitutes):
+            print("{} - {}".format(i+1, select_substitute['name_product']))
+
+        user_choice = input("\nveuillez selectionner un produit de substition\n")
+        if user_choice.isdigit():
+            substitute = substitutes[int(user_choice) -1]
+            print("{}".format(substitute))
+            self.choose_product_final(category,product,substitute)
+        else:
+            if user_choice not in ["C", "H", "Q"]:
+                print("premier if")
+                self.choice_substitute_action(category, product)
+            elif user_choice == "C":
+                self.choice_substitute_action(category, product)
+            elif user_choice == "H":
+                self.menu()
+            elif user_choice == "Q":
+                self.exit()
+        #return substitutes[int(user_choice)]
+
+    def choose_product_final(self, category, product, substitute):
+        user_save = input("voulez-vous enregistrer ?")
+        if user_save.isdigit():
+            self.choose_product_final(category, product, substitute)
+        else:
+            if user_save not in ["O","N","C","Q"]:
+                self.choose_product_final(category, product, substitute)
+            if user_save == "O":
+                id_product = product['barcode']
+                id_substitute = product['barcode']
+                self.db_user.add_product_into_favorites(id_product, id_substitute)
+                self.choice_substitute(category,product)
+            elif user_save == "N" or user_save == "Q":
+                self.exit()
+            elif user_save == "C":
+                self.choice_substitute(category,product)
