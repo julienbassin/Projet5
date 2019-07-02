@@ -1,5 +1,5 @@
-/.vs
-/__pycache__
+.vs
+__pycache__
 /Scripts
 /Include
 /lib
