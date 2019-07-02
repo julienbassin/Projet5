@@ -6,5 +6,3 @@ pip-selfcheck.json
 pyvenv.cfg
 config.py
 test.py
-.vs/
-__pycache__/
