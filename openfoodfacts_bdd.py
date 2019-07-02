@@ -17,7 +17,10 @@ class DataBaseCreator:
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
-        self.db = records.Database("mysql+mysqlconnector://{}:{}@{}/pur_beurre".format(config.DATABASE_CONFIG['user'],config.DATABASE_CONFIG['password'], config.DATABASE_CONFIG['host']))
+        self.db = records.Database("mysql+mysqlconnector://{}:{}@{}/pur_beurre".format(
+                                                                                config.DATABASE_CONFIG['user'],
+                                                                                config.DATABASE_CONFIG['password'],
+                                                                                config.DATABASE_CONFIG['host']))
         self.logger = logging.getLogger()
         self.database = DataBaseUsers(self.db)
 
@@ -105,7 +108,10 @@ class DataBaseCreator:
                                    VALUES
                                   (:barcode, :name, :grade, :web_site)
                                   ON DUPLICATE KEY UPDATE barcode=:barcode;
-                               """, barcode=product['barcode'], name=product['name'], web_site=product['url'], grade=product['grade'])
+                               """, barcode=product['barcode'],
+                                    name=product['name'],
+                                    web_site=product['url'],
+                                    grade=product['grade'])
 
     def insert_categories(self, product):
         """
