@@ -120,7 +120,7 @@ class View:
                 self.choose_product_final(category, product, substitute)
             if user_save == "O":
                 id_product = product['barcode']
-                id_substitute = product['barcode']
+                id_substitute = substitute['barcode']
                 self.db_user.add_product_into_favorites(id_product, id_substitute)
                 self.choice_substitute(category,product)
             elif user_save == "N" or user_save == "Q":

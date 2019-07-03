@@ -14,6 +14,11 @@ class CollectingDataOFF:
         self.params = config.PARAMS
         self.logger = logging.getLogger()
 
+    def menu(self):
+        print('\n', config.DECO, '\n',
+              "***  Collect and harvest Openfoodfacts API ° ***",
+              '\n', config.DECO, '\n')
+
     def connect_and_harvest(self):
 
         """

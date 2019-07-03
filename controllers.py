@@ -17,22 +17,28 @@ class Controller:
         pass
 
     def run(self):
-        pass
+
+        request = CollectingDataOFF()
+        request.menu()
+        final_json = request.connect_and_harvest()
+        products = request.get_info_products(final_json)
+
+
+        database = DataBaseCreator()
+        database.menu()
+        database.create_tables()
+
+        database.insert_rows(products)
+
+
+        affichage =  View()
+        affichage.menu()
+        database.disconnect_sql()
+
+if __name__ == "__main__":
+    app = Controller()
+    app.run()
 
 
 
-
-request = CollectingDataOFF()
-final_json = request.connect_and_harvest()
-products = request.get_info_products(final_json)
-
-
-database = DataBaseCreator()
-database.create_tables()
-
-database.insert_rows(products)
-#database.disconnect_sql()
-
-affichage =  View()
-affichage.menu()
 

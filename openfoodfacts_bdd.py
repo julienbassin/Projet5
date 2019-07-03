@@ -24,6 +24,11 @@ class DataBaseCreator:
         self.logger = logging.getLogger()
         self.database = DataBaseUsers(self.db)
 
+    def menu(self):
+        print('\n', config.DECO, '\n',
+              "***  Configuration of the databse PUR_BEURRE ° ***",
+              '\n', config.DECO, '\n')
+
     def drop_tables(self):
         """
             Method to drop all tables
