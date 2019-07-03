@@ -49,7 +49,7 @@ class DataBaseUsers:
             Method which is check product with another product
         """
         product_grade = self.conn_user.query("""
-                                                SELECT product.name_product, MIN(product.grade), product.web_site, cat.category
+                                                SELECT product.barcode, product.name_product, MIN(product.grade), product.web_site, cat.category
                                                 FROM products as product
                                                 JOIN products_categories as pc
                                                     ON pc.product_id = product.barcode

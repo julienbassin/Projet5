@@ -81,7 +81,7 @@ class View:
         products = self.db_user.get_all_products_per_category(category)
         for i, product in enumerate(products):
             print("{} - {}".format(i+1, product['name_product']))
-        choice_product = input("\n Veuillez sélectionner le produit de votre choix\n")
+        choice_product = input("\nVeuillez sélectionner le produit de votre choix\n")
         return products[int(choice_product)-1]
 
 
@@ -101,7 +101,6 @@ class View:
             self.choose_product_final(category,product,substitute)
         else:
             if user_choice not in ["C", "H", "Q"]:
-                print("premier if")
                 self.choice_substitute_action(category, product)
             elif user_choice == "C":
                 self.choice_substitute_action(category, product)
@@ -109,21 +108,23 @@ class View:
                 self.menu()
             elif user_choice == "Q":
                 self.exit()
-        #return substitutes[int(user_choice)]
 
     def choose_product_final(self, category, product, substitute):
-        user_save = input("voulez-vous enregistrer ?")
+        print("le produit de substitution {}\n".format(product['name_product']))
+        user_save = input("\nSouhaitez-vous l'enregistrer ?\n")
         if user_save.isdigit():
             self.choose_product_final(category, product, substitute)
         else:
             if user_save not in ["O","N","C","Q"]:
                 self.choose_product_final(category, product, substitute)
-            if user_save == "O":
+            if user_save == "O" or user_save == "o":
                 id_product = product['barcode']
                 id_substitute = substitute['barcode']
                 self.db_user.add_product_into_favorites(id_product, id_substitute)
-                self.choice_substitute(category,product)
-            elif user_save == "N" or user_save == "Q":
-                self.exit()
+                self.menu()
+            elif user_save == "N":
+                self.db_user.choose_product_from_category(category,product)
             elif user_save == "C":
                 self.choice_substitute(category,product)
+            elif user_save == "Q":
+                self.exit()
