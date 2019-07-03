@@ -32,14 +32,17 @@ class DataBaseUsers:
                              """, user_cat=category, fetchall=True).as_dict()
         return cat
 
-    def get_all_favorites_product(self,category):
+    def get_all_favorites_product(self):
         """
             Method which get all favorite product from user
         """
 
         all_favorites_products = self.conn_user.query("""
-
-
+                                                       Select product.barcode, product.name_product, product.grade, product.web_site
+                                                       FROM Products as product
+                                                       JOIN favorites as fav
+                                                            ON fav.id_substitute = product.barcode
+                                                        ORDER BY product.barcode
                                                       """).as_dict()
 
         return all_favorites_products

@@ -30,6 +30,7 @@ class View:
                 self.product_store()
             elif user == '2':
                 #table subsitué
+                #check if a product is present via check_products (row present ?)
                 self.product_store()
             elif user == 'Q':
                 self.exit()
@@ -49,12 +50,10 @@ class View:
         return config.CATEGORIES[int(user_input)-1]
 
     def product_store(self):
-        #print("\n Select your product \n")
-        #user_product_input = eval(input())
-        #print("vous avez choisi: ", user_product_input)
-
-        #montrer la carte d'identité du produit
-        pass
+        print("voici vos produits")
+        favorites_products = self.db_user.get_all_favorites_product()
+        for i, favorite in enumerate(favorites_products):
+            print("\n {} - {}\n".format(i+1, favorite))
 
     def exit(self):
         """
