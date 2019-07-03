@@ -33,7 +33,6 @@ class View:
                 self.choice_category()
                 self.product_store()
             elif user == '2':
-                #table subsitué
                 #check if a product is present via check_products (row present ?)
                 self.product_store()
             elif user == 'Q':
@@ -149,3 +148,6 @@ class View:
                 self.choice_substitute(category,product)
             elif user_save == "Q":
                 self.exit()
+
+    def check_rows(self):
+        pass
