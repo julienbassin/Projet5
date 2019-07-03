@@ -11,6 +11,10 @@ class View:
         self.db_user = DataBaseUsers(self.database.db)
 
     def menu(self):
+        """
+            Method which display the main menu
+        """
+
         """ This function allows to direct the user """
         print('\n', config.DECO, '\n',
               "***  Welcome to ° Substitute Factory ° ***",
@@ -36,11 +40,17 @@ class View:
                 self.exit()
 
     def choice_category(self):
+        """
+            Method which allow to display you category
+        """
         category = self.choice_category_action()
         print('\n',"|*** vous avez choisis la catégorie ***| : ",category.capitalize(), '\n')
         self.choice_product(category)
 
     def choice_category_action(self):
+        """
+            Method which allow to choose your category
+        """
         for i, categorie in enumerate(config.CATEGORIES):
             print(i+1, "-", categorie)
         user_input = input('\n'
@@ -50,6 +60,9 @@ class View:
         return config.CATEGORIES[int(user_input)-1]
 
     def product_store(self):
+        """
+            Method which display all substitued products
+        """
         print("voici vos produits")
         favorites_products = self.db_user.get_all_favorites_product()
         for i, favorite in enumerate(favorites_products):
@@ -85,10 +98,16 @@ class View:
 
 
     def choice_substitute(self, category, product):
+        """
+            Method which use method action
+        """
         self.choice_substitute_action(category, product)
 
 
     def choice_substitute_action(self, category,product):
+        """
+            Method which permit to substitute
+        """
         substitutes = self.db_user.choose_product_from_category(category, product)
         for i, select_substitute in enumerate(substitutes):
             print("{} - {}".format(i+1, select_substitute['name_product']))
@@ -109,6 +128,9 @@ class View:
                 self.exit()
 
     def choose_product_final(self, category, product, substitute):
+        """
+            Method which select your product
+        """
         print("le produit de substitution {}\n".format(product['name_product']))
         user_save = input("\nSouhaitez-vous l'enregistrer ?\n")
         if user_save.isdigit():
