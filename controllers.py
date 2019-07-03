@@ -1,4 +1,3 @@
-import logging
 import mysql.connector
 
 from openfoodfacts_bdd import DataBaseCreator

@@ -1,5 +1,5 @@
 import logging
-from logging.config import dictConfig
+#from logging.config import dictConfig
 
 URL = "https://fr.openfoodfacts.org/cgi/search.pl"
 
@@ -31,24 +31,24 @@ DATABASE_CONFIG = {
 
 
 
-logging_config = dict(
-    version = 1,
-    formatters = {
-        'f': {'format':
-              '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'}
-        },
-    handlers = {
-        'h': {'class': 'logging.StreamHandler',
-              'formatter': 'f',
-              'level': logging.DEBUG}
-        },
-    root = {
-        'handlers': ['h'],
-        'level': logging.DEBUG,
-        },
-)
+# logging_config = dict(
+#     version = 1,
+#     formatters = {
+#         'f': {'format':
+#               '%(asctime)s %(name)-12s %(levelname)-8s %(message)s'}
+#         },
+#     handlers = {
+#         'h': {'class': 'logging.RotatingFileHandler',
+#               'formatter': 'f',
+#               'level': logging.DEBUG}
+#         },
+#     root = {
+#         'handlers': ['h'],
+#         'level': logging.DEBUG,
+#         },
+# )
 
-dictConfig(logging_config)
+# dictConfig(logging_config)
 
 DECO = "***-------------------------------------------------***"
 SPACE_ADJUST = "          "
