@@ -62,7 +62,7 @@ class DataBaseCreator:
                           store VARCHAR(150) UNIQUE);
                       """)
 
-    def create_table_subkey(self):
+    def create_association_table(self):
         """ Creating to the associate index table """
         self.db.query(""" CREATE TABLE IF NOT EXISTS Products_categories (
                           id MEDIUMINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -92,7 +92,7 @@ class DataBaseCreator:
         self.create_table_product()
         self.create_table_category()
         self.create_table_store()
-        self.create_table_subkey()
+        self.create_association_table()
         self.create_favorites_table()
 
     def create_tables(self):
@@ -157,7 +157,7 @@ class DataBaseCreator:
                               (SELECT id FROM Stores WHERE store=:store_id));
                           """, barcode=product['barcode'], store_id=store_final)
 
-    def insert_rows(self, products):
+    def insert_products_informations(self, products):
         """
             Method which call all the methods below
         """
