@@ -31,6 +31,7 @@ class Controller:
 
         affichage =  View()
         affichage.menu()
+
         database.disconnect_sql()
 
 
