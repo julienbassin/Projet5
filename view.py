@@ -63,9 +63,11 @@ class View:
             Method which display all substitued products
         """
         print("voici vos produits")
-        favorites_products = self.db_user.get_all_favorites_product()
-        for i, favorite in enumerate(favorites_products):
-            print("\n {} - {}\n".format(i+1, favorite))
+        # favorites_products =
+        self.db_user.get_all_favorites_product()
+        #print(favorites_products)
+        # for i, favorite in enumerate(favorites_products):
+        #     print("\n {} - {}\n".format(i+1, favorite))
 
     def exit(self):
         """
