@@ -27,14 +27,14 @@ First and foremost, you must select menu-1 to initiate the creation of database 
 You have to select one of available categories
 ```
 <p align="center">
-  <img  width="644" height="230" src="https://i.ibb.co/WDB1g2Z/img2.png">
+  <img  width="644" height="230" src="https://i.ibb.co/q1xWmkb/img2.png">
 </p>
 
 ```
 You have to select one of available product and store in database.
 ```
 <p align="center">
-  <img  width="462" height="366" src="https://i.ibb.co/WDB1g2Z/img3.png">
+  <img  width="462" height="366" src="https://i.ibb.co/Y07NvHh/img3.png">
 </p>
 
 ```
@@ -42,5 +42,5 @@ When this first task is done you can go back in the menu to see your favorite pr
 ```
 
 <p align="center">
-  <img  width="938" height="258" src="https://i.ibb.co/WDB1g2Z/img4.png">
+  <img  width="938" height="258" src="https://i.ibb.co/ZNpqy7W/img4.png">
 </p>
