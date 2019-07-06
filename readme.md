@@ -20,7 +20,7 @@ First and foremost, you must select menu-1 to initiate the creation of database 
 ```
 
 <p align="center">
-  <img width="460" height="300" src="https://i.ibb.co/WDB1g2Z/img1.png">
+  <img width="441" height="154" src="https://i.ibb.co/WDB1g2Z/img1.png">
 </p>
 ```
 
