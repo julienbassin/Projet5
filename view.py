@@ -114,7 +114,13 @@ class View:
         user_choice = input("\nveuillez selectionner un produit de substition\n")
         if user_choice.isdigit():
             substitute = substitutes[int(user_choice) -1]
-            print("{}".format(substitute))
+            print("""
+                 Barcode: {} Product Name: {} Grade: {} Url: {} Category: {}
+                 """.format(substitute['barcode'],
+                            substitute['name_product'],
+                            substitute['MIN(product.grade)']
+                            substitute['web_site'],
+                            substitute['category']))
             self.choose_product_final(category,product,substitute)
         else:
             if user_choice not in ["C", "H", "Q"]:
@@ -130,7 +136,7 @@ class View:
         """
             Method which select your product
         """
-        print("le produit de substitution {}\n".format(product['name_product']))
+        print("le produit de substitution {}\n".format(substitute['name_product']))
         user_save = input("\nSouhaitez-vous l'enregistrer ?\n")
         if user_save.isdigit():
             self.choose_product_final(category, product, substitute)
