@@ -115,7 +115,11 @@ class View:
         if user_choice.isdigit():
             substitute = substitutes[int(user_choice) -1]
             print("""
-                 Barcode: {} Product Name: {} Grade: {} Url: {} Category: {}
+            Barcode: {}
+            Product Name: {}
+            Grade: {}
+            Url: {}
+            Category: {}
                  """.format(substitute['barcode'],
                             substitute['name_product'],
                             substitute['MIN(product.grade)'],
