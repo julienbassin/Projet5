@@ -20,7 +20,7 @@ First and foremost, you must select menu-1 to initiate the creation of database 
 
 ![image]
 
-(https://ibb.co/f8r74xf)
+(https://i.ibb.co/WDB1g2Z/img1.png)
 
 You have to select one of available categories
 
