@@ -17,10 +17,12 @@ git clone https://github.com/julienbassin/Projet5.git
 Launch main.py
 
 First and foremost, you must select menu-1 to initiate the creation of database and storing all data.
+```
 
 <p align="center">
   <img width="460" height="300" src="https://i.ibb.co/WDB1g2Z/img1.png">
 </p>
+```
 
 You have to select one of available categories
 
@@ -35,7 +37,5 @@ You have to select one of available product and store in database.
 (https://user-images.githubusercontent.com/28196028/60753327-c5ad6580-9fd0-11e9-85a1-ad1ca9d3f74d.png)
 
 When this first task is done you can go back in the menu to see your favorite products with the menu-2
-
-
 
 ```
