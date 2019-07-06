@@ -10,7 +10,7 @@ product through the Openfoodfacts API
 
 ## Installation
 ```
-Clone the repo https://github.com/julienbassin/Projet5.git
+git clone https://github.com/julienbassin/Projet5.git
 ```
 
 ## Usage
