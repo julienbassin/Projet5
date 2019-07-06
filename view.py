@@ -140,7 +140,6 @@ class View:
         """
             Method which select your product
         """
-        print("le produit de substitution {}\n".format(substitute['name_product']))
         user_save = input("\nSouhaitez-vous l'enregistrer ?\n")
         if user_save.isdigit():
             self.choose_product_final(category, product, substitute)
