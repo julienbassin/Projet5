@@ -118,7 +118,7 @@ class View:
                  Barcode: {} Product Name: {} Grade: {} Url: {} Category: {}
                  """.format(substitute['barcode'],
                             substitute['name_product'],
-                            substitute['MIN(product.grade)']
+                            substitute['MIN(product.grade)'],
                             substitute['web_site'],
                             substitute['category']))
             self.choose_product_final(category,product,substitute)
