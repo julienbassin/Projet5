@@ -45,8 +45,6 @@ class DataBaseUsers:
                                                         ORDER BY product.barcode
                                                       """).as_dict()
 
-        print(all_favorites_products)
-
         return all_favorites_products
 
     def choose_product_from_category(self, category, product):

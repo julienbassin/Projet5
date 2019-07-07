@@ -31,7 +31,7 @@ class View:
         else:
             if user == '1':
                 self.choice_category()
-                self.product_store()
+                # self.product_store()
             elif user == '2':
                 #check if a product is present via check_products (row present ?)
                 self.product_store()
@@ -63,11 +63,10 @@ class View:
             Method which display all substitued products
         """
         print("voici vos produits")
-        # favorites_products =
-        self.db_user.get_all_favorites_product()
+        favorites_products = self.db_user.get_all_favorites_product()
         #print(favorites_products)
-        # for i, favorite in enumerate(favorites_products):
-        #     print("\n {} - {}\n".format(i+1, favorite))
+        for i, favorite in enumerate(favorites_products):
+            print("\n {} - {}\n".format(i+1, favorite))
 
     def exit(self):
         """
