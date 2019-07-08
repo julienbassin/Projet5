@@ -14,6 +14,13 @@ git clone https://github.com/julienbassin/Projet5.git
 
 ## Usage
 ```
+
+Users connection
+
+ajouter ces informations dans le fichier config
+
+exemple
+
 Launch main.py
 
 First and foremost, you must select menu-1 to initiate the creation of database and storing all data.
