@@ -1,11 +1,4 @@
-import mysql.connector
-import logging
-import time
 import records
-
-from mysql.connector import errorcode
-from logging.handlers import RotatingFileHandler
-
 from openfoodfacts_users import DataBaseUsers
 import config
 
@@ -17,11 +10,11 @@ class DataBaseCreator:
             Dans init, initialiser les params pour les credentials à utiliser
 
         """
-        self.db = records.Database("mysql+mysqlconnector://{}:{}@{}/pur_beurre".format(
-                                                                                config.DATABASE_CONFIG['user'],
-                                                                                config.DATABASE_CONFIG['password'],
-                                                                                config.DATABASE_CONFIG['host']))
-        self.logger = logging.getLogger()
+        self.user = config.DB_CONF['user']
+        self.Pass = config.DB_CONF['password']
+        self.host = config.DB_CONF['host']
+        self.db_info = f"{self.user}:{self.Pass}@{self.host}/pur_beurre"
+        self.db = records.Database(f"mysql+mysqlconnector://{self.db_info}")
         self.database = DataBaseUsers(self.db)
 
     def menu(self):
@@ -43,9 +36,9 @@ class DataBaseCreator:
         """ Create table Products """
         self.db.query(""" CREATE TABLE IF NOT EXISTS Products (
                           barcode BIGINT UNSIGNED UNIQUE PRIMARY KEY,
-                          name_product VARCHAR(150),
+                          name VARCHAR(150),
                           grade CHAR(1),
-                          web_site VARCHAR(255));
+                          url VARCHAR(255));
                        """)
 
     def create_table_category(self):
@@ -69,7 +62,6 @@ class DataBaseCreator:
                           product_id BIGINT REFERENCES Products(barcode),
                           category_id MEDIUMINT REFERENCES Category(id));
                        """)
-
 
         self.db.query(""" CREATE TABLE IF NOT EXISTS Products_stores (
                           id MEDIUMINT UNSIGNED PRIMARY KEY AUTO_INCREMENT,
@@ -108,39 +100,44 @@ class DataBaseCreator:
         """
             Method to insert all the products into the product's table
         """
+
+        barcode = product['barcode']
+        name = product['name']
+        url = product['url']
+        grade = product['grade']
         self.db.query(""" INSERT INTO `products`
-                                   (barcode, name_product,grade,web_site)
+                                   (barcode, name,grade,url)
                                    VALUES
-                                  (:barcode, :name, :grade, :web_site)
-                                  ON DUPLICATE KEY UPDATE barcode=:barcode;
-                               """, barcode=product['barcode'],
-                                    name=product['name'],
-                                    web_site=product['url'],
-                                    grade=product['grade'])
+                                  (:barcode, :name, :grade, :url)
+                                  ON DUPLICATE KEY UPDATE barcode=:barcode
+                               """, barcode=barcode, name=name, url=url, grade=grade)
 
     def insert_categories(self, product):
         """
             Method which is insert categories into the table
         """
+        barcode = product['barcode']
+        category = product['category']
+
         self.db.query(""" INSERT INTO `categories`
                           (category)
                           VALUES
                           (:category)
                           ON DUPLICATE KEY UPDATE category=:category
-
-                      """, category=product['category'])
+                      """, category=category)
 
         self.db.query(""" INSERT INTO Products_categories
                           (product_id, category_id)
                           VALUES
                           (:barcode, (SELECT id FROM Categories
                            WHERE category=:category_id));
-                      """, barcode=product['barcode'], category_id=product['category'])
+                      """, barcode=barcode, category_id=category)
 
     def insert_stores(self, product):
         """
             Method which is insert stores into the table
         """
+        barcode = product['barcode']
         all_stores = []
         for store in product['store'].split(","):
             store.strip()
@@ -149,13 +146,13 @@ class DataBaseCreator:
         for store_final in all_stores:
             self.db.query(""" INSERT INTO stores (store)
                               VALUES (:store)
-                              ON DUPLICATE KEY UPDATE store=:store;
+                              ON DUPLICATE KEY UPDATE store=:store
                           """, store=store_final)
 
             self.db.query("""INSERT INTO Products_stores
                               (product_id, store_id) VALUES (:barcode,
-                              (SELECT id FROM Stores WHERE store=:store_id));
-                          """, barcode=product['barcode'], store_id=store_final)
+                              (SELECT id FROM Stores WHERE store=:store_id))
+                          """, barcode=barcode, store_id=store_final)
 
     def insert_products_informations(self, products):
         """
@@ -167,15 +164,3 @@ class DataBaseCreator:
             self.insert_stores(product)
             self.insert_categories(product)
         return True
-
-
-    def disconnect_sql(self):
-        """
-            Method to disconnect from the database
-        """
-        try:
-            if self.db.open:
-                self.db.close()
-                print("Connection closed !")
-        except mysql.connector.Error as err:
-            self.logger.debug(err)

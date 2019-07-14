@@ -1,21 +1,19 @@
-import logging
 import config
-
 from openfoodfacts_bdd import DataBaseCreator
 from openfoodfacts_users import DataBaseUsers
+
 
 class View:
 
     def __init__(self):
         self.database = DataBaseCreator()
-        self.db_user = DataBaseUsers(self.database.db)
+        self.user = DataBaseUsers(self.database.db)
 
     def menu(self):
         """
             Method which display the main menu
         """
 
-        """ This function allows to direct the user """
         print('\n', config.DECO, '\n',
               "***  Welcome to ° Substitute Factory ° ***",
               '\n', config.DECO, '\n')
@@ -26,13 +24,12 @@ class View:
         user = input()
         key_list = ['1', '2', 'Q']
         if user not in key_list:
-            print('\n', config.SPACE_ADJUST,  config.INDEX_ERROR, '\n')
+            print('\n', config.SPACE_ADJUST, '\n')
             self.menu()
         else:
             if user == '1':
                 self.choice_category()
             elif user == '2':
-                #check if a product is present via check_products (row present ?)
                 self.product_store()
             elif user == 'Q':
                 self.exit()
@@ -42,7 +39,7 @@ class View:
             Method which allow to display you category
         """
         category = self.choice_category_action()
-        print('\n',"|*** vous avez choisis la catégorie ***| : ",category.capitalize(), '\n')
+        print('\n', "La catégorie choisis: ", category.capitalize(), '\n')
         self.choice_product(category)
 
     def choice_category_action(self):
@@ -51,10 +48,11 @@ class View:
         """
         for i, categorie in enumerate(config.CATEGORIES):
             print(i+1, "-", categorie)
-        user_input = input('\n'
-                     " |*** Pour choisir une catégorie, "
-                     "tapez le chiffre associé et appuyer sur ENTREE ***| "
-                     '\n\n')
+
+        user_input = input("""\n
+                           |*** Choisir une catégorie,
+                           tapez le chiffre associé et appuyer sur ENTREE ***|
+                            \n""")
         return config.CATEGORIES[int(user_input)-1]
 
     def product_store(self):
@@ -62,18 +60,14 @@ class View:
             Method which display all substitued products
         """
         print("voici vos produits")
-        favorites_products = self.db_user.get_all_favorites_product()
+        favorites_products = self.user.get_all_favorites_product()
         for i, favorite in enumerate(favorites_products):
-            print("""
-            Barcode: {}
-            Product Name: {}
-            Grade: {}
-            Url: {}
-            Category: {}
-                 """.format(favorite['barcode'],
-                            favorite['name_product'],
-                            favorite['grade'],
-                            favorite['web_site']))
+            print(f"""
+            Barcode: {favorite['barcode']}
+            Product Name: {favorite['name']}
+            Grade: {favorite['grade']}
+            Url: {favorite['url']}
+                 """)
 
     def exit(self):
         """
@@ -89,20 +83,18 @@ class View:
             Method which shows all available products
         """
         product = self.choice_product_action(category)
-        print("Vous avez choisi {}".format(product['name_product'].capitalize()))
+        print(f"Produit choisi: {product['name'].capitalize()}")
         self.choice_substitute(category, product)
-
 
     def choice_product_action(self, category):
         """
             Method which puts all action for products
         """
-        products = self.db_user.get_all_products_per_category(category)
+        products = self.user.get_all_products_per_category(category)
         for i, product in enumerate(products):
-            print("{} - {}".format(i+1, product['name_product']))
-        choice_product = input("\nVeuillez sélectionner le produit de votre choix\n")
+            print(f"{i+1} - {product['name']}")
+        choice_product = input("\nSélectionner un produit de votre choix\n")
         return products[int(choice_product)-1]
-
 
     def choice_substitute(self, category, product):
         """
@@ -110,30 +102,25 @@ class View:
         """
         self.choice_substitute_action(category, product)
 
-
-    def choice_substitute_action(self, category,product):
+    def choice_substitute_action(self, category, product):
         """
             Method which permit to substitute
         """
-        substitutes = self.db_user.choose_product_from_category(category, product)
+        substitutes = self.user.choose_product_from_category(category, product)
         for i, select_substitute in enumerate(substitutes):
-            print("{} - {}".format(i+1, select_substitute['name_product']))
+            print(f"{i+1} - {select_substitute['name']}")
 
-        user_choice = input("\nveuillez selectionner un produit de substition\n")
+        user_choice = input("\n Sélectionner un produit de substition\n")
         if user_choice.isdigit():
-            substitute = substitutes[int(user_choice) -1]
-            print("""
-            Barcode: {}
-            Product Name: {}
-            Grade: {}
-            Url: {}
-            Category: {}
-                 """.format(substitute['barcode'],
-                            substitute['name_product'],
-                            substitute['MIN(product.grade)'],
-                            substitute['web_site'],
-                            substitute['category']))
-            self.choose_product_final(category,product,substitute)
+            substitute = substitutes[int(user_choice)-1]
+            print(f"""
+            Barcode: {substitute['barcode']}
+            Product Name: {substitute['name']}
+            Grade: {substitute['MIN(p.grade)']}
+            Url: {substitute['url']}
+            Category: {substitute['category']}
+            """)
+            self.choose_product_final(category, product, substitute)
         else:
             if user_choice not in ["C", "H", "Q"]:
                 self.choice_substitute_action(category, product)
@@ -152,17 +139,17 @@ class View:
         if user_save.isdigit():
             self.choose_product_final(category, product, substitute)
         else:
-            if user_save not in ["O","N","C","Q"]:
+            if user_save not in ["O", "N", "C", "Q"]:
                 self.choose_product_final(category, product, substitute)
             if user_save == "O" or user_save == "o":
                 id_product = product['barcode']
                 id_substitute = substitute['barcode']
-                self.db_user.add_product_into_favorites(id_product, id_substitute)
+                self.user.add_product_into_favorites(id_product, id_substitute)
                 self.menu()
             elif user_save == "N":
-                self.db_user.choose_product_from_category(category,product)
+                self.user.choose_product_from_category(category, product)
             elif user_save == "C":
-                self.choice_substitute(category,product)
+                self.choice_substitute(category, product)
             elif user_save == "Q":
                 self.exit()
 

@@ -1,10 +1,6 @@
-import mysql.connector
-
 from openfoodfacts_bdd import DataBaseCreator
-
 from openfoodfacts_requests import CollectingDataOFF
 from view import View
-import config
 
 
 class Controller:
@@ -23,19 +19,11 @@ class Controller:
         request.menu()
         final_json = request.connect_and_harvest()
         products = request.get_info_products(final_json)
-
         database = DataBaseCreator()
         database.menu()
         database.create_tables()
         database.insert_products_informations(products)
-
-        affichage =  View()
+        affichage = View()
         affichage.menu()
 
         database.disconnect_sql()
-
-
-
-
-
-

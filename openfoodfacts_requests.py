@@ -1,8 +1,6 @@
 import requests
-import json
-import logging
-
 import config
+
 
 class CollectingDataOFF:
 
@@ -12,7 +10,6 @@ class CollectingDataOFF:
 
     def __init__(self):
         self.params = config.PARAMS
-        self.logger = logging.getLogger()
 
     def menu(self):
         print('\n', config.DECO, '\n',
@@ -28,19 +25,19 @@ class CollectingDataOFF:
         try:
             for category in config.CATEGORIES:
                 self.params['tag_0'] = category
-                response = requests.get(config.URL, params=self.params, timeout=3)
+                response = requests.get(config.URL, params=self.params)
                 products_section = response.json()['products']
                 for product in products_section:
                     product['main_category'] = category
                 all_products[category] = products_section
         except requests.exceptions.HTTPError as errh:
-            self.logger.message("Http Error")
+            print("Http Error: ", errh)
         except requests.exceptions.ConnectionError as errc:
-            self.logger.message("Error Connecting")
+            print("Error Connecting: ", errc)
         except requests.exceptions.Timeout as errt:
-            self.logger.message("Timeout Error")
+            print("Timeout Error: ", errt)
         except requests.exceptions.RequestException as err:
-            self.logger.message("Oops: Something Else")
+            print("Oops: Something Else: ", err)
         return all_products
 
     def get_info_products(self, products_final):
@@ -55,12 +52,14 @@ class CollectingDataOFF:
         list_products = []
         for products in products_final.values():
             for product in products:
-                if product.get('nutrition_grades') and product.get('product_name') and product.get('stores') and product.get('id'):
+                if product.get('nutrition_grades') \
+                    and product.get('product_name') \
+                        and product.get('stores') and product.get('id'):
                     product_final = {
-                            'barcode' : product['id'],
+                            'barcode': product['id'],
                             'name': product['product_name'],
                             'category': product['main_category'],
-                            'sub_category' : product['categories'].upper().split(","),
+                            'sub_category': product['categories'].split(","),
                             'grade': product['nutrition_grades'],
                             'store': product['stores'],
                             'url': product['url']
