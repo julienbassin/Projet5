@@ -157,8 +157,9 @@ class View:
         """
             Method which checks if something is present into favorite table
         """
-        FavIsPresent = self.user.check_favoris_products()
-        if len(FavIsPresent):
+        fav_is_present = self.user.check_favoris_products()
+        if fav_is_present:
             self.product_store()
         else:
             print("[-] None of any products are present into favorites table")
+            self.menu()

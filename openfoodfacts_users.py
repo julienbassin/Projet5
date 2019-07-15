@@ -71,6 +71,9 @@ class DataBaseUsers:
     def check_favoris_products(self):
         fav_product_count = self.conn_user.query("""
                              SELECT COUNT(*) FROM favorites;
-                             """)
+                             """).as_dict()
 
-        return fav_product_count
+        if fav_product_count[0]["COUNT(*)"] > 0:
+            return True
+        else:
+            return False
