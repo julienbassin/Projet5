@@ -30,7 +30,7 @@ class View:
             if user == '1':
                 self.choice_category()
             elif user == '2':
-                self.check_rows()
+                self.check_favorites_products()
             elif user == 'Q':
                 self.exit()
 
@@ -153,13 +153,12 @@ class View:
             elif user_save == "Q":
                 self.exit()
 
-    def check_rows(self):
+    def check_favorites_products(self):
         """
             Method which checks if something is present into favorite table
         """
-        FavIsPresent = self.user.get_all_favorites_product
-        # if self.user.get_all_favorites_product:
-        #     print("[+] something here")
-        #     self.product_store()
-        # else:
-        #     print("[-] something missing")
+        FavIsPresent = self.user.check_favoris_products()
+        if len(FavIsPresent):
+            self.product_store()
+        else:
+            print("[-] None of any products are present into favorites table")

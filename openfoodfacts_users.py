@@ -67,3 +67,10 @@ class DataBaseUsers:
 
                              """, id_product=product, id_substitute=substitute)
         return product_favorite
+
+    def check_favoris_products(self):
+        fav_product_count = self.conn_user.query("""
+                             SELECT COUNT(*) FROM favorites;
+                             """)
+
+        return fav_product_count
